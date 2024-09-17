@@ -1,0 +1,194 @@
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 96192d094e2275b1646db892f6d3664d330385710ce41e07181c5b6cf63e06aa
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2024-04-18
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 92873cc8ff0aee6dfb615cb45e67fbdc21bc11bfb17d1604aa31f1aef58c2d69
+Status: install ok installed
+
+Package: eigen3
+Version: 3.4.0
+Port-Version: 4
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d9bb400f2c0dd1bbc660f5d6d8640e492c7af81def03cfe1569fb0a56f595571
+Description: C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms.
+Status: install ok installed
+
+Package: matplotlib-cpp
+Version: 2020-08-27
+Port-Version: 2
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 52bca697630f8fa3929dd76c6a21e1e06675d589cdab84b97460f8166ac8615a
+Description: Extremely simple yet powerful header-only C++ plotting library built on the popular matplotlib
+Status: purge ok not-installed
+
+Package: zlib
+Version: 1.3.1
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 0e350dc3ab9bf200498acae1a80c516038fe7f52759c0d22a6a6baef19659487
+Description: A compression library
+Status: purge ok not-installed
+
+Package: vcpkg-tool-meson
+Version: 1.3.2
+Port-Version: 3
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 54610e8e13a934ef960d5d86fb3ff2eca3b43c2b0b6dacf2b9cc14b4a2f6629f
+Description: Meson build system
+Status: purge ok not-installed
+
+Package: pkgconf
+Version: 2.2.0
+Depends: vcpkg-tool-meson
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a648da4333b3b12403a1f15317a14e0f2391f2a128e20c7398e66e568cfecc31
+Description: pkgconf is a program which helps to configure compiler and linker flags for development libraries. It is similar to pkg-config from freedesktop.org.
+Status: purge ok not-installed
+
+Package: vcpkg-pkgconfig-get-modules
+Version: 2024-04-03
+Depends: pkgconf
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2af9496140cc6327e0d85e74b42babc86bfc191303277361927cb7c2e818cf8a
+Status: purge ok not-installed
+
+Package: vcpkg-cmake-get-vars
+Version: 2023-12-31
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 9fd27f58971d5524f5de0e009b32a28a2ed9bbb3ac75fb82e7cbabebe4d48d48
+Status: purge ok not-installed
+
+Package: vcpkg-msbuild
+Version: 2023-08-08
+Depends: vcpkg-cmake-get-vars, vcpkg-pkgconfig-get-modules
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d5da6f4b4747e0401f47c6482d6b0d3cf85ac63706d4bf4b280bdd31e1d02ce5
+Status: purge ok not-installed
+
+Package: sqlite3
+Version: 3.46.0
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: af55585849734f4df0eec815a8f7e716e4767cca57eb03011352bf047a66bc41
+Description: SQLite is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.
+Default-Features: json1
+Status: purge ok not-installed
+
+Package: sqlite3
+Feature: json1
+Architecture: x64-windows
+Multi-Arch: same
+Description: Enable JSON functionality for sqlite3
+Status: purge ok not-installed
+
+Package: openssl
+Version: 3.3.0
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config, vcpkg-cmake-get-vars
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 77b4975218d77b82a2104d19605ad60903917032ff08e8d753fa2c556d1923b8
+Description: OpenSSL is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is also a general-purpose cryptography library.
+Status: purge ok not-installed
+
+Package: liblzma
+Version: 5.4.4
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 972430c21f2b53adc2e0f60b6e25a7bfcdb0b251254910ee62ea1526e55c2a32
+Description: Compression library with an API similar to that of zlib.
+Status: purge ok not-installed
+
+Package: libffi
+Version: 3.4.6
+Depends: vcpkg-cmake-get-vars
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a01f339c08d8a1200813235bdb5e4912f6fb435ecb75189360c1711b9f76a159
+Description: Portable, high level programming interface to various calling conventions
+Status: purge ok not-installed
+
+Package: expat
+Version: 2.6.2
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 9a165e00a84bd95e158152eecfcb51889c4e0d10e841c4e19a19a09adec3ed16
+Description: XML parser library written in C
+Status: purge ok not-installed
+
+Package: bzip2
+Version: 1.0.8
+Port-Version: 5
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 87d1d550e0a08b185559c9197a96b96ad24ff4449d6f8b112aee48e57816b944
+Description: bzip2 is a freely available, patent free, high-quality data compressor. It typically compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical compressors), whilst being around twice as fast at compression and six times faster at decompression.
+Default-Features: tool
+Status: purge ok not-installed
+
+Package: bzip2
+Feature: tool
+Architecture: x64-windows
+Multi-Arch: same
+Description: Builds bzip2 executable
+Status: purge ok not-installed
+
+Package: python3
+Version: 3.11.8
+Port-Version: 2
+Depends: bzip2, expat, libffi, liblzma, openssl, sqlite3, vcpkg-msbuild, zlib
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 387b0848d376d6b6f232e6d65d5f29ea7a3634b25d75c4d281c8875c02a91437
+Description: The Python programming language
+Status: purge ok not-installed
+
+Package: nodesoup
+Version: 2023-06-12
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 9f9a10ca2a04a799b932cbc462bcc77b9e549b06fbacdb49b7740c7f88117890
+Description: Force-directed graph layout with Fruchterman-Reingold
+Status: install ok installed
+
+Package: cimg
+Version: 3.3.2
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 1dcfc9fbb1654de326ccd8da81c4c9fbb36c539ff3e884757bd3a35af1e2ae59
+Description: The CImg Library is a small, open-source, and modern C++ toolkit for image processing
+Status: install ok installed
+
+Package: matplotplusplus
+Version: 1.2.1
+Depends: cimg, nodesoup, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6d83708973c03c1df54587b20a5801cf347925542ef16d8b5b0da37e4674bf0a
+Description: A C++ graphics library for data visualization
+Status: install ok installed
+

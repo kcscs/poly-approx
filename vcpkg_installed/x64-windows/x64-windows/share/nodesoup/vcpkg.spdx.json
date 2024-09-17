@@ -1,0 +1,153 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/nodesoup-x64-windows-2023-06-12-6447d600-8721-4a81-937e-a4a07815e784",
+  "name": "nodesoup:x64-windows@2023-06-12 9f9a10ca2a04a799b932cbc462bcc77b9e549b06fbacdb49b7740c7f88117890",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-8a83681f921b10d86ae626fd833c253f4f8c355b"
+    ],
+    "created": "2024-09-12T22:05:38Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-2"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-3"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-2",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-3",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "nodesoup",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "2023-06-12",
+      "downloadLocation": "git+https://github.com/microsoft/vcpkg@43d30f8e5e0cd4b45a590027d0c9ea5036f0ba40",
+      "licenseConcluded": "Unlicense",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "Force-directed graph layout with Fruchterman-Reingold",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "nodesoup:x64-windows",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "9f9a10ca2a04a799b932cbc462bcc77b9e549b06fbacdb49b7740c7f88117890",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "Unlicense",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-1",
+      "name": "olvb/nodesoup",
+      "downloadLocation": "git+https://github.com/olvb/nodesoup@3158ad082bb0cd1abee75418b12b35522dbca74f",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "be98cd5a1106fb1b6e6cb6b880229f590c2d4c4cc176dcceb2e2226ff3f2344ccb4510fb3a0911e9329701af50f076ee2efb9a3afc9e985b4d9c3fb92c12102d"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": "./C:/Users/kcscs/AppData/Local/vcpkg/registries/git-trees/43d30f8e5e0cd4b45a590027d0c9ea5036f0ba40/fix-cmakelists.patch",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6581f25ded402362685b58fee3eaf9e0d971d4ac5fb346014aba91fbe579e323"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/Users/kcscs/AppData/Local/vcpkg/registries/git-trees/43d30f8e5e0cd4b45a590027d0c9ea5036f0ba40/portfile.cmake",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fd9cfa5483dffc5002ff4c66c1f149e0425ffa6bc373a924b1275487fd2887a7"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/Users/kcscs/AppData/Local/vcpkg/registries/git-trees/43d30f8e5e0cd4b45a590027d0c9ea5036f0ba40/usage",
+      "SPDXID": "SPDXRef-file-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "a21cd3459c6bcb6abf18a3f3173f83492da947b9d92c454f3bf7a1af1c035861"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/Users/kcscs/AppData/Local/vcpkg/registries/git-trees/43d30f8e5e0cd4b45a590027d0c9ea5036f0ba40/vcpkg.json",
+      "SPDXID": "SPDXRef-file-3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "43fdb66232d453b8076324ec1c31c113cd8ded33098ba97fb61c546f0350a15b"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}
