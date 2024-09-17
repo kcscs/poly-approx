@@ -19,12 +19,12 @@ using namespace matplot;
 constexpr int SAMPLE_COUNT = 12;
 constexpr int DEGREE = 10;
 constexpr int ESTIMATION_DEGREE = 3;
-constexpr double RANGE_MIN = -0.5;
-constexpr double RANGE_MAX = 0.5;
+constexpr double RANGE_MIN = -2;
+constexpr double RANGE_MAX = 2;
 constexpr int MAX_DEGREE = DEGREE > ESTIMATION_DEGREE ? DEGREE : ESTIMATION_DEGREE;
 //constexpr double TARGET_PRECISION = 5e-16;
 constexpr double TARGET_PRECISION = 5e-10;
-constexpr int SPLIT_DEGREE = 100;
+constexpr int SPLIT_DEGREE = 50;
 
 //consteval size_t choose(size_t n, size_t k) {
 //	if (k == 0)
@@ -127,12 +127,12 @@ std::tuple<VectorXd, VectorXd, VectorXd> chebyshev_interpolate(std::function<dou
 	VectorXd x(degree + 1);
 	for (int i = 0; i < degree + 1; ++i)
 		x[i] = (b - a) / 2 * cos((pi * i) / degree) + (b + a) / 2;
-	std::cout << "Chebysev points:\n" << x << "\n\n";
+	//std::cout << "Chebysev points:\n" << x << "\n\n";
 
 	VectorXd vals(degree + 1);
 	for (int i = 0; i < degree + 1; ++i)
 		vals(i) = func(x(i));
-	std::cout << "Function values:\n" << vals << "\n\n";
+	//std::cout << "Function values:\n" << vals << "\n\n";
 
 	MatrixXd J(degree + 1, degree + 1);
 	for (int j = 0; j < degree + 1; ++j) {
@@ -142,11 +142,11 @@ std::tuple<VectorXd, VectorXd, VectorXd> chebyshev_interpolate(std::function<dou
 			J(j, k) = 2.0 / (pj * pk * degree) * cos((j * pi * k) / degree);
 		}
 	}
-	std::cout << "J:\n" << J << "\n\n";
+	//std::cout << "J:\n" << J << "\n\n";
 
 
 	VectorXd coeffs = J * vals;
-	std::cout << "Chebysev coefficients:\n" << coeffs << "\n\n";
+	//std::cout << "Chebysev coefficients:\n" << coeffs << "\n\n";
 	return std::make_tuple(coeffs, x, vals);
 }
 
@@ -191,7 +191,7 @@ std::vector<ChebyshevSegment> approximate_adaptive_chebyshev(std::function<doubl
 	seg.begin = cur_begin;
 	seg.end = cur_end;*/
 
-	while (cur_begin < end) {
+	while (cur_begin+eps<double>() < end) {
 		int cur_degree = 1;
 		double err = std::numeric_limits<double>::infinity();
 		VectorXd coeffs;
@@ -201,6 +201,7 @@ std::vector<ChebyshevSegment> approximate_adaptive_chebyshev(std::function<doubl
 			coeffs = std::get<0>(interp_res);
 			auto err_res = calc_interstitial_error(func, coeffs, cur_begin, cur_end);
 			err = std::get<0>(err_res);
+			std::cout << "e:" << err << "\n";
 		}
 		if (cur_degree >= SPLIT_DEGREE) {
 			cur_end = (cur_begin + cur_end) / 2;
@@ -299,4 +300,9 @@ int main()
 	//plot(Y);
 
 	show();
+
+
+
+	auto segments = approximate_adaptive_chebyshev(f, RANGE_MIN, RANGE_MAX);
+
 }
