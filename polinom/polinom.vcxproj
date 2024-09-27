@@ -132,6 +132,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="polinom.cpp" />
+    <ClCompile Include="SegmentedChebyshevApproximator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FunctionApproximator.h" />
+    <ClInclude Include="SegmentedChebyshevApproximator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="eigen.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

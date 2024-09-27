@@ -18,5 +18,19 @@
     <ClCompile Include="polinom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SegmentedChebyshevApproximator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FunctionApproximator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SegmentedChebyshevApproximator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="eigen.natvis" />
   </ItemGroup>
 </Project>

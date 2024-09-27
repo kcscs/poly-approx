@@ -10,6 +10,8 @@
 #include <cstdlib>
 #include <functional>
 #include <limits>
+#include "SegmentedChebyshevApproximator.h"
+#include <math.h>
 
 using Eigen::MatrixXd;
 using Eigen::Vector2;
@@ -19,8 +21,8 @@ using namespace matplot;
 constexpr int SAMPLE_COUNT = 12;
 constexpr int DEGREE = 10;
 constexpr int ESTIMATION_DEGREE = 3;
-constexpr double RANGE_MIN = -2;
-constexpr double RANGE_MAX = 2;
+constexpr double RANGE_MIN = -20;
+constexpr double RANGE_MAX = 20;
 constexpr int MAX_DEGREE = DEGREE > ESTIMATION_DEGREE ? DEGREE : ESTIMATION_DEGREE;
 //constexpr double TARGET_PRECISION = 5e-16;
 constexpr double TARGET_PRECISION = 5e-10;
@@ -220,7 +222,7 @@ std::vector<ChebyshevSegment> approximate_adaptive_chebyshev(std::function<doubl
 
 	return segments;
 }
-
+/*
 int main()
 {
 	MatrixXd m(2, 2);
@@ -305,4 +307,40 @@ int main()
 
 	auto segments = approximate_adaptive_chebyshev(f, RANGE_MIN, RANGE_MAX);
 
+}*/
+
+template<typename T>
+T wilkinson(T x) {
+	T res = 1;
+	for (int i = 1; i <= 20; ++i)
+		res *= (x - i);
+	return res/1000.0f;
+}
+
+template<typename T, T a, T b>
+T linear(T x) {
+	return a*x+b;
+}
+
+double sind2(double d) {
+	return sin(d);
+}
+
+
+
+int main() {
+
+	std::default_random_engine rng(std::time(nullptr));
+	std::uniform_real_distribution<double> unif(0.0, 1.0);
+	auto rand = std::bind(unif, rng);
+
+	std::vector<double> coeffs(10 + 1);
+	for (auto& c : coeffs)
+		c = rand() * 2 - 1;
+
+	//SegmentedChebyshevApproximator<double> cheb(wilkinson<double>, 0.0, 1.0, 32, 5e-8);
+	//SegmentedChebyshevApproximator<double> cheb(sind2, 0.0, 2.0, 128, 5e-16);
+	SegmentedChebyshevApproximator<double> cheb([&](double x) {return eval_monomial(coeffs, x); }, -1.0, 1.0, 128, 1e-6);
+	//SegmentedChebyshevApproximator<double> cheb(linear<double, 1.0, 0.0>, 0.0, 5.0, 128, 5e-10);
+	cheb.Show();
 }
