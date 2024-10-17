@@ -137,6 +137,9 @@
   <ItemGroup>
     <ClInclude Include="FunctionApproximator.h" />
     <ClInclude Include="SegmentedChebyshevApproximator.h" />
+    <ClInclude Include="monom.h" />
+    <ClInclude Include="render.h" />
+    <ClInclude Include="stb_image_write.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="eigen.natvis" />
