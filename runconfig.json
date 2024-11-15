@@ -1,0 +1,13 @@
+{
+  "experiments": [
+    {
+      "precision": "float",
+      "surface": "torus",
+      "camera": {
+        "resolution": [64, 64],
+        "fovy": 90.0
+      },
+      "view": { "eye": [2, 3, -4], "target": [0, 0, 0] }
+    }
+  ]
+}

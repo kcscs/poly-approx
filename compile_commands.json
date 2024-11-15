@@ -1,0 +1,260 @@
+[
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DNOMINMAX -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/eigen -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/stb -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/_deps/glm-src/glm/.. -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/_deps/argparse-src/include -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/_deps/nlohmann_json-src/include -g -std=gnu++20 -o CMakeFiles/chebrenderer.dir/src/main.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/src/main.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/src/main.cpp",
+  "output": "CMakeFiles/chebrenderer.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/3rd_party",
+  "command": "/usr/bin/c++ -D_USE_MATH_DEFINES -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -fvisibility=hidden -o CMakeFiles/nodesoup.dir/nodesoup/src/algebra.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/algebra.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/algebra.cpp",
+  "output": "dependencies/matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/algebra.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/3rd_party",
+  "command": "/usr/bin/c++ -D_USE_MATH_DEFINES -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -fvisibility=hidden -o CMakeFiles/nodesoup.dir/nodesoup/src/fruchterman_reingold.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/fruchterman_reingold.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/fruchterman_reingold.cpp",
+  "output": "dependencies/matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/fruchterman_reingold.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/3rd_party",
+  "command": "/usr/bin/c++ -D_USE_MATH_DEFINES -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -fvisibility=hidden -o CMakeFiles/nodesoup.dir/nodesoup/src/kamada_kawai.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/kamada_kawai.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/kamada_kawai.cpp",
+  "output": "dependencies/matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/kamada_kawai.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/3rd_party",
+  "command": "/usr/bin/c++ -D_USE_MATH_DEFINES -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -fvisibility=hidden -o CMakeFiles/nodesoup.dir/nodesoup/src/layout.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/layout.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/layout.cpp",
+  "output": "dependencies/matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/layout.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/3rd_party",
+  "command": "/usr/bin/c++ -D_USE_MATH_DEFINES -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -fvisibility=hidden -o CMakeFiles/nodesoup.dir/nodesoup/src/nodesoup.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/nodesoup.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/src/nodesoup.cpp",
+  "output": "dependencies/matplotplusplus/source/3rd_party/CMakeFiles/nodesoup.dir/nodesoup/src/nodesoup.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/backend/backend_interface.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/backend/backend_interface.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/backend/backend_interface.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/backend_interface.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/backend/gnuplot.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/backend/gnuplot.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/backend/gnuplot.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/gnuplot.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/backend/backend_registry.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/backend/backend_registry.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/backend/backend_registry.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/backend/backend_registry.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/core/axes_type.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/axes_type.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/axes_type.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axes_type.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/core/axes_object.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/axes_object.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/axes_object.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axes_object.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/core/axis_type.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/axis_type.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/axis_type.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/axis_type.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/core/figure_type.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/figure_type.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/figure_type.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/figure_type.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/core/figure_registry.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/figure_registry.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/figure_registry.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/figure_registry.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/core/legend.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/legend.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/legend.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/legend.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/core/line_spec.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/line_spec.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/core/line_spec.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/core/line_spec.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/colors.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/colors.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/colors.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/colors.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/common.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/common.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/common.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/common.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/contourc.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/contourc.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/contourc.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/contourc.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/popen.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/popen.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/popen.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/popen.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/world_cities.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_cities.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_cities.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_cities.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/world_map_10m.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_map_10m.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_map_10m.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_10m.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/world_map_50m.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_map_50m.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_map_50m.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_50m.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/util/world_map_110m.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_map_110m.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/util/world_map_110m.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/util/world_map_110m.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/bars.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/bars.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/bars.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/bars.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/box_chart.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/box_chart.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/box_chart.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/box_chart.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/circles.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/circles.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/circles.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/circles.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/contours.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/contours.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/contours.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/contours.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/error_bar.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/error_bar.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/error_bar.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/error_bar.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/filled_area.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/filled_area.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/filled_area.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/filled_area.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/function_line.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/function_line.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/function_line.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/function_line.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/histogram.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/histogram.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/histogram.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/histogram.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/labels.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/labels.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/labels.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/labels.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/line.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/line.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/line.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/line.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/matrix.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/matrix.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/matrix.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/matrix.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/network.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/network.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/network.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/network.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/parallel_lines.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/parallel_lines.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/parallel_lines.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/parallel_lines.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/stair.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/stair.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/stair.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/stair.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/string_function.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/string_function.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/string_function.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/string_function.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/surface.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/surface.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/surface.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/surface.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/axes_objects/vectors.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/vectors.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/axes_objects/vectors.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/axes_objects/vectors.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/freestanding/axes_functions.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/freestanding/axes_functions.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/freestanding/axes_functions.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/freestanding/axes_functions.cpp.o"
+},
+{
+  "directory": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot",
+  "command": "/usr/bin/c++ -DMATPLOT_BUILD_HIGH_RESOLUTION_WORLD_MAP -DMATPLOT_HAS_FBUFSIZE -DNOMINMAX -Dcimg_display=0 -Dcimg_use_blas -Dcimg_use_fftw3 -Dcimg_use_jpeg -Dcimg_use_lapack -Dcimg_use_png -Dcimg_use_tiff -Dcimg_use_zlib -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source -I/home/kcscs/phd/polynomial_tracer/cheb_renderer/build/dependencies/matplotplusplus/source/matplot -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/cimg -isystem /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/3rd_party/nodesoup/include -g -Wall -Wextra -pedantic -Werror -o CMakeFiles/matplot.dir/freestanding/histcounts.cpp.o -c /home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/freestanding/histcounts.cpp",
+  "file": "/home/kcscs/phd/polynomial_tracer/cheb_renderer/dependencies/matplotplusplus/source/matplot/freestanding/histcounts.cpp",
+  "output": "dependencies/matplotplusplus/source/matplot/CMakeFiles/matplot.dir/freestanding/histcounts.cpp.o"
+}
+]
