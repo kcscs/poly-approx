@@ -4,8 +4,10 @@
 #include <nlohmann/json.hpp>
 
 #include "experiment_config.hpp"
+#include "logging.hpp"
 
 struct RunConfig {
+  LogSettings logsettings;
   std::vector<ExperimentConfig> experiments;
 };
 

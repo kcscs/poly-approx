@@ -1,7 +1,9 @@
 #pragma once
 #include "chebseg.hpp"
+#include "logging.hpp"
 #include "seg.hpp"
 #include "types.hpp"
+#include <cassert>
 #include <glm/gtc/constants.hpp>
 #include <vector>
 
@@ -24,7 +26,6 @@ public:
       // xs[i] = (static_cast<funcval_T>(i) / deg)*2-1; //
       xs[i] = -cos(static_cast<FT>(i) / deg * glm::pi<FT>());
       ys(i) = other.EvalNorm(xs[i]);
-
     }
 
     em A(deg + 1, deg + 1);
@@ -58,8 +59,8 @@ public:
   }
 
   FT EvalNorm(FT x) const override { return eval_mon(coeffs, x, begin, end); }
-private:
 
+private:
   static FT eval_mon(const std::vector<FT> &coeffs, FT x, FT a, FT b) {
     int deg = coeffs.size() - 1;
     if (deg == 0)
@@ -75,10 +76,13 @@ private:
   }
 
   virtual std::vector<FT> FindRootsNorm() const override {
+    Logger &log = Logger::Get();
     constexpr FT eps = std::numeric_limits<FT>::epsilon();
     const auto &c = coeffs;
+    assert(c.size() > 0);
     const int deg = c.size() - 1;
-    // std::cout<<"fr: "<<begin<<"-"<<end<<" d: "<<deg<<"\n";
+    log << Logger::cat("rootfinder");
+    log << "fr " << begin << "-" << end << " d: " << deg << "\n";
     if (deg == 0)
       throw std::invalid_argument("Infinite roots");
 
@@ -113,7 +117,7 @@ private:
     } else {
       MonSeg<FT> derivative = TDifferentiate();
       std::vector<FT> critical_points = derivative.FindRootsNorm();
-      // std::cout<<"d: "<<deg<<" crits: "<<critical_points.size()<<"\n";
+      log << "d: " << deg << " crits: " << critical_points.size() << "\n";
       std::vector<FT> borders = {-1};
       borders.insert(borders.end(), critical_points.begin(),
                      critical_points.end());

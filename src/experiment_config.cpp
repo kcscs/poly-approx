@@ -7,7 +7,8 @@ void to_json(json &j, const ExperimentConfig &c) {
                              : "double"},
            {"surface", c.surface},
            {"camera", c.camera},
-           {"view", c.view}};
+           {"view", c.view},
+           {"trace_settings", c.trace_settings}};
 }
 
 void from_json(const json &j, ExperimentConfig &p) {
@@ -17,6 +18,7 @@ void from_json(const json &j, ExperimentConfig &p) {
                                     : ExperimentConfig::FLOAT_TYPE::DOUBLE;
   p.camera = j["camera"];
   p.view = j["view"];
+  p.trace_settings = j["trace_settings"];
 }
 
 void to_json(json &j, const CameraConfig &c) {

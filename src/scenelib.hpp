@@ -7,7 +7,9 @@
 template<typename FT>
 class Scenes {
   using T = Types<FT>;
-  public:
+  const static std::map<std::string, typename T::SurfaceFunction> surfaces;
+  
+public:
     static T::SurfaceFunction GetSceneByName(std::string name) {
       auto it = surfaces.find(name);
       if(it == surfaces.end())
@@ -28,5 +30,11 @@ class Scenes {
       };
     }
 
-    const static std::map<std::string, typename T::SurfaceFunction> surfaces;
+    constexpr static T::SurfaceFunction sphere() {
+    return [](FT x, FT y, FT z) {
+      FT R = 0.5;
+      return x*x+y*y+z*z-R*R;
+    };
+  }
+
 };

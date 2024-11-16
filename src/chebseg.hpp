@@ -1,6 +1,8 @@
 #pragma once
+#include "logging.hpp"
 #include "seg.hpp"
 #include <glm/gtc/constants.hpp>
+#include <iostream>
 
 template <typename FT> struct ChebSeg : public Seg<FT> {
   using T = Types<FT>;
@@ -39,6 +41,9 @@ public:
   std::tuple<FT, ev, ev, FT> Error(T::RRFunction ground_truth)
       const override { // return type should have ET for the error
     using ET = FT;
+    Logger &log = Logger::Get();
+    log << Logger::cat("interstitial");
+
     int degree = this->deg();
     ev x(degree);
     for (int i = 1; i < 2 * degree + 1; i += 2)
@@ -48,10 +53,13 @@ public:
     ev y(degree);
     ET interstitial_error = -1;
     FT interstitial_error_place = -1;
+    log << "calculating error\ncoeffs: " << coeffs << "\n";
     for (int i = 0; i < x.size(); ++i) {
       y(i) = ground_truth(x(i));
       FT approx = this->Eval(x(i));
       ET err = abs(static_cast<ET>(approx) - y(i));
+      log << "at " << x(i) << " gt:" << y(i) << " approx:" << approx
+          << " err:" << err << "\n";
       if (err > interstitial_error) {
         interstitial_error = err;
         interstitial_error_place = x(i);
@@ -62,16 +70,22 @@ public:
 
   /// Solving transcendental equations 3.2
   static ChebSeg<FT> Interpolate(T::RRFunction func, int degree, FT a, FT b) {
+    Logger &log = Logger::Get();
+    log << Logger::cat("cheb_interp");
     ev x(degree + 1);
     for (int i = 0; i < degree + 1; ++i)
       // x[i] = (b - a) / 2 * cos((pi * i) / degree) + (b + a) / 2;
       x[i] = cos((T::pi * i) / degree);
-    // std::cout << "Chebysev points:\n" << x << "\n\n";
+    log << "Chebysev points:\n" << x << "\n\n";
+
+    for (int i = 0; i < degree + 1; ++i)
+      x[i] = (b - a) / 2 * x(i) + (b + a) / 2;
+    log << "Transformed points:\n" << x << "\n\n";
 
     ev vals(degree + 1);
     for (int i = 0; i < degree + 1; ++i)
-      vals(i) = func((b - a) / 2 * x(i) + (b + a) / 2);
-    // std::cout << "Function values:\n" << vals << "\n\n";
+      vals(i) = func(x[i]);
+    log << "Function values:\n" << vals << "\n\n";
 
     em J(degree + 1, degree + 1);
     for (int j = 0; j < degree + 1; ++j) {
@@ -90,7 +104,12 @@ public:
     //   std::cout << "cond: " << cond << "\n";
 
     ev coeffs = J * vals;
-    // std::cout << "Chebysev coefficients:\n" << coeffs << "\n\n";
-    return std::make_tuple(coeffs, x, vals);
+    log << "Chebysev coefficients:\n" << coeffs << "\n\n";
+
+    std::vector<FT> coeff_vec(coeffs.size());
+    for (int i = 0; i < coeffs.size(); i++) {
+      coeff_vec[i] = coeffs(i);
+    }
+    return {coeff_vec, a, b};
   }
 };

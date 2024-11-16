@@ -22,6 +22,7 @@ struct ExperimentConfig {
   std::string surface;
   CameraConfig camera;
   ViewConfig view;
+  json trace_settings;
 };
 
 void to_json(json &j, const ExperimentConfig &c);

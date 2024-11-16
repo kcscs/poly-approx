@@ -1,12 +1,14 @@
 #pragma once
 #include "chebseg.hpp"
 #include "exceptions.hpp"
+#include "logging.hpp"
+#include "monseg.hpp"
 #include "seg.hpp"
 #include "types.hpp"
-#include "monseg.hpp"
 #include <Eigen/QR>
 #include <concepts>
 #include <glm/glm.hpp>
+#include <iostream>
 #include <vector>
 
 template <typename FT> class Fun : public Types<FT> {
@@ -21,7 +23,7 @@ class SegFun : public Fun<FT> { // TODO: optimize
 public:
   using typename Types<FT>::RRFunction;
 
-  SegFun(std::vector<SegT> segments) : segments(segments){}
+  SegFun(std::vector<SegT> segments) : segments(segments) {}
 
   FT Evaluate(FT x) const override {
     if (x < segments[0].begin)
@@ -41,9 +43,23 @@ public:
     std::vector<OtherSegT> conv_segments;
     conv_segments.reserve(segments.size());
     for (int i = 0; i < segments.size(); ++i) {
-      conv_segments.emplace_back(segments[i]);
+      conv_segments.push_back(OtherSegT::FitAtChebPoints(segments[i]));
+      // std::cout<<"asd: "<<segments[i].coeffs.size()<<" -> "<<conv_segments.back().coeffs.size()<<"\n";
     }
-    return OtherSegT(conv_segments);
+    return SegFun<FT, OtherSegT>(conv_segments);
+  }
+
+  const std::vector<SegT> &GetSegments() const { return segments; }
+
+  std::vector<FT> FindRoots() const {
+    Logger& log = Logger::Get();
+    std::vector<FT> roots;
+    for (const auto &seg : segments) {
+      log<<Logger::cat("rootfinder")<<"coeffs: "<<seg.coeffs.size()<<"\n";
+      std::vector<FT> seg_roots = seg.FindRoots();
+      roots.insert(roots.end(), seg_roots.begin(), seg_roots.end());
+    }
+    return roots;
   }
 
 protected:
@@ -52,7 +68,7 @@ protected:
 
 template <typename FT, typename FunT, typename SegT>
   requires std::derived_from<FunT, SegFun<FT, SegT>>
-class SegFunApproximator {
+class SegFunApproximator : public Types<FT> {
 public:
   using T = Types<FT>;
   using typename T::em;
@@ -61,19 +77,24 @@ public:
   using ET = FT;
 
   RRFunction f;
-  FT x_begin, x_end;
   int split_degree;
   FT target_precision;
 
 public:
-  virtual FunT operator()(RRFunction f, FT x_begin, FT y_begin) {
+  SegFunApproximator(json params) {
+    split_degree = params["max_degree"];
+    target_precision = params["target_precision"];
+  }
 
+  virtual FunT operator()(RRFunction f, FT x_begin, FT x_end) {
+    Logger &log = Logger::Get();
     std::vector<SegT> segments;
     FT cur_begin = x_begin;
     FT cur_end = x_end;
 
     ET last_err = std::numeric_limits<ET>::infinity();
-
+    log << Logger::cat("split") << "initial range: " << x_begin << " - "
+        << x_end << "\n";
     while (cur_begin + T::eps < x_end) {
       int cur_degree = 1;
       double err = std::numeric_limits<double>::infinity();
@@ -93,8 +114,9 @@ public:
         //     chebyshev_interpolate(f, cur_degree, cur_begin, cur_end);
 
         auto err_res = chebseg.Error(f);
+        log << Logger::cat("cheb_res");
         err = std::get<0>(err_res);
-        // std::cout << "d:" << cur_degree << "  e:" << err << "\n";
+        log << "d:" << cur_degree << "  e:" << err << "\n";
 
         if (err < best_error) {
           best_error = err;
@@ -112,20 +134,21 @@ public:
       if (split /*&& cur_end-cur_begin > (x_end-x_begin)/100*/) {
         // cur_end = (cur_begin + cur_end) / 2;
         cur_end = best_error_place;
-        // std::cout << "split: " << cur_begin << "-" << cur_end << " e:" << err
-        //           << "\n";
+        log << Logger::cat("split") << "split: " << cur_begin << "-" << cur_end
+            << " e:" << err << "\n";
       } else {
         ChebSeg<FT> chebseg =
             ChebSeg<FT>::Interpolate(f, best_degree, cur_begin, cur_end);
         auto err_res = chebseg.Error(f);
         err = std::get<0>(err_res);
-        // std::cout << "segment: " << cur_begin << "-" << cur_end
-        //           << " deg: " << best_degree << " err: " << err << "\n";
-        segments.emplace_back();
-        auto &seg = segments.back();
-        seg.begin = cur_begin;
-        seg.end = cur_end;
-        seg.coeffs = coeffs;
+        log << Logger::cat("segment") << "segment: " << cur_begin << "-"
+            << cur_end << " deg: " << best_degree << " err: " << err << "\n";
+        // std::vector<FT> coeff_vec(coeffs.size());
+        // for (int i = 0; i < coeffs.size(); i++) {
+        //   coeff_vec[i] = coeffs(i);
+        // }
+        // segments.emplace_back(coeff_vec, cur_begin, cur_end);
+        segments.push_back(chebseg);
         cur_begin = cur_end;
         cur_end = x_end;
       }
@@ -143,6 +166,9 @@ public:
 
   using typename Types<FT>::RRFunction;
 
+  ChebFun(std::vector<ChebSeg<FT>> _segments)
+      : SegFun<FT, ChebSeg<FT>>(_segments) {}
+
 private:
 };
 
@@ -151,6 +177,9 @@ public:
   using T = Types<FT>;
   using typename Types<FT>::ev;
   using typename Types<FT>::em;
+
+  MonFun(std::vector<MonSeg<FT>> _segments)
+  : SegFun<FT, MonSeg<FT>>(_segments) {}
 
 private:
 };

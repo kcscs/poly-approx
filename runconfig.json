@@ -1,4 +1,12 @@
 {
+  "logging": {
+    "all_cats": ["init", "segment", "split", "cheb_res", 
+      "cheb_interp", "interstitial", "rootfinder", "render"],
+    "print": ["init", "segment"],
+    "save": [],
+    "print_all": false,
+    "save_all": false
+  },
   "experiments": [
     {
       "precision": "float",
@@ -7,7 +15,12 @@
         "resolution": [64, 64],
         "fovy": 90.0
       },
-      "view": { "eye": [2, 3, -4], "target": [0, 0, 0] }
+      "view": { "eye": [1, 2, -1], "target": [0, 0, 0] },
+      "trace_settings": {
+        "clip": [0.0, 20.0],
+        "max_degree": 8,
+        "target_precision": 1e-4
+      }
     }
   ]
 }
