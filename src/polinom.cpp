@@ -407,10 +407,47 @@ int main() {
   // << "), "<<rootx[1]<<"("<<root_test_segment.Evaluate(rootx[1])<<")\n";
 
   // Renderer
+  // Renderer<double> renderer;
+  // glm::dvec3 eye = {0, 0, -5};
+  // glm::dvec3 at = {0, 0, 0};
+  // glm::dvec3 light = glm::normalize(glm::dvec3(0.5, -1, -0.2));
+
   Renderer<float> renderer;
-  glm::dvec3 eye = {0, 0, -5};
-  glm::dvec3 at = {0, 0, 0};
-  glm::dvec3 light = glm::normalize(glm::dvec3(0.5, -1, -0.2));
+  glm::vec3 eye = {0.0f, 0.0f, -5.0f};
+  glm::vec3 at = {0.0f, 0.0f, 0.0f};
+  glm::vec3 light = glm::normalize(glm::vec3(0.5f, -1.0f, -0.2f));
+  // renderer.raymarch_test_ray(
+  //     [](float x, float y, float z) {
+  //       glm::vec3 p(x, y, z);
+  //       glm::vec2 t(2, 0.5);
+  //       glm::vec2 q = glm::vec2(glm::length(glm::vec2(p.x, p.z)) - t.x, p.y);
+  //       return glm::length(q) - t.y;
+  //     },
+  //     glm::vec3(2, 3, -4), glm::vec3(0.0, 2.0, 0.0) - glm::normalize(glm::vec3(2, 3, -4)),
+  //     {0.0f, 20.0f}, {4.0f, 8.0f}, 1000, 16, 1e-6);
+
+  // Torus (IQ, float)
+  // renderer.render(
+  //     [](float x, float y, float z) {
+  //       glm::vec3 p(x, y, z);
+  //       glm::vec2 t(2, 0.5);
+  //       glm::vec2 q = glm::vec2(glm::length(glm::vec2(p.x, p.z)) - t.x, p.y);
+  //       return glm::length(q) - t.y;
+  //     },
+  //     glm::vec3(2, 3, -4), at, 32, 32, 3.14 / 2,
+  //     glm::normalize(glm::vec3(1.0f, -3.0f, 1.0f)), "Torus_iqsdf_float_5e-6.png");
+  //
+  // Torus (IQ, float)
+  // renderer.render(
+  //     [](float x, float y, float z) {
+  //       float R = 2.0;
+  //       float r = 0.5;
+  //       float lhs = 4*R*R*(x*x+y*y);
+  //       float rhs = (x*x+y*y+z*z+R*R-r*r);
+  //       return rhs*rhs-lhs;
+  //     },
+  //     glm::vec3(2, 3, -4), at, 32, 32, 3.14 / 2,
+  //     glm::normalize(glm::vec3(1.0f, -3.0f, 1.0f)), "Torus_deg4_float_5e-6.png");
 
   // Sphere
   // renderer.render(
@@ -446,27 +483,27 @@ int main() {
   // test 14: max deg 8, max err 5e-15
 
   // Torus stable (degree 4)
-  // renderer.render(
-  //     [](double x, double y, double z) {
-  //       double R = 2.0;
-  //       double r = 0.5;
-  //       double lhs = 4*R*R*(x*x+y*y);
-  //       double rhs = (x*x+y*y+z*z+R*R-r*r);
-  //       return rhs*rhs-lhs;
-  //     },
-  //     glm::dvec3(2, 3, -4), at, 64, 64, 3.14 / 2,
-  //     glm::normalize(glm::dvec3(1.0f, -3.0f, 1.0f)), "Test16.png");
-
-
-  renderer.raymarch_test_ray(
+  renderer.render(
       [](double x, double y, double z) {
-        glm::dvec3 p(x, y, z);
-        glm::dvec2 t(2, 0.5);
-        glm::dvec2 q = glm::dvec2(glm::length(glm::dvec2(p.x, p.z)) - t.x, p.y);
-        return glm::length(q) - t.y;
+        double R = 2.0;
+        double r = 0.5;
+        double lhs = 4*R*R*(x*x+y*y);
+        double rhs = (x*x+y*y+z*z+R*R-r*r);
+        return rhs*rhs-lhs;
       },
-      glm::dvec3(2, 3, -4), glm::dvec3(0.0, 2.0, 0.0) - glm::normalize(glm::dvec3(2, 3, -4)),
-      {0.0, 20.0}, {4.0, 8.0}, 1000, 8, 1e-10);
+      glm::dvec3(2, 3, -4), at, 64, 64, 3.14 / 2,
+      glm::normalize(glm::dvec3(1.0f, -3.0f, 1.0f)), "Test16.png");
+
+
+  // renderer.raymarch_test_ray(
+  //     [](double x, double y, double z) {
+  //       glm::dvec3 p(x, y, z);
+  //       glm::dvec2 t(2, 0.5);
+  //       glm::dvec2 q = glm::dvec2(glm::length(glm::dvec2(p.x, p.z)) - t.x, p.y);
+  //       return glm::length(q) - t.y;
+  //     },
+  //     glm::dvec3(2, 3, -4), glm::dvec3(0.0, 2.0, 0.0) - glm::normalize(glm::dvec3(2, 3, -4)),
+  //     {0.0, 20.0}, {4.0, 8.0}, 1000, 8, 1e-10);
 
   // renderer.render(
   //   [](double x, double y, double z) { return sin(x)-y*y*y-z*z; },

@@ -131,7 +131,7 @@ template <typename funcval_T> struct MonomSegment {
 
       std::vector<funcval_T> border_values(borders.size());
       for (int i = 0; i < borders.size(); ++i) {
-        border_values[i] = eval_mon(c, borders[i], -1.0, 1.0);
+        border_values[i] = eval_mon(c, borders[i], static_cast<funcval_T>(-1.0),static_cast<funcval_T>(1.0));
       }
 
       std::vector<funcval_T> roots;
@@ -143,7 +143,7 @@ template <typename funcval_T> struct MonomSegment {
           continue;
 
         funcval_T xc = (borders[i] + borders[i + 1]) / 2;
-        funcval_T vc = eval_mon(c, xc, -1.0, 1.0);
+        funcval_T vc = eval_mon(c, xc, static_cast<funcval_T>(-1.0),static_cast<funcval_T>(1.0));
         if (vl * vc > eps) {
           vl = vc;
           xl = xc;
@@ -159,8 +159,8 @@ template <typename funcval_T> struct MonomSegment {
         while (abs(xn - xn_prev) > eps*50 && step < max_steps) { // newton-bisection hybrid iterations
           while (abs(xn - xn_prev) > eps*50 && xn >= xl && xn <= xr && step < max_steps) {
             xn_prev = xn;
-            xn = xn - eval_mon(c, xn, -1.0, 1.0) /
-                          eval_mon(derivative.coeffs, xn, -1.0, 1.0);
+            xn = xn - eval_mon(c, xn, static_cast<funcval_T>(-1.0),static_cast<funcval_T>(1.0)) /
+                          eval_mon(derivative.coeffs, xn, static_cast<funcval_T>(-1.0),static_cast<funcval_T>(1.0));
             ++step;
           }
           if (xn < xl){
