@@ -38,3 +38,7 @@ public:
   }
 
 };
+
+extern template class Scenes<float>;
+extern template class Scenes<double>;
+

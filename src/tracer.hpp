@@ -34,20 +34,26 @@ public:
 
   TraceResult trace(T::Ray ray, T::SurfaceFunction f) const override {
 
+    TraceResult res;
     typename T::RRFunction func = [&](FT t) {
       typename T::gv3 p = ray.start + t * ray.dir;
       return f(p.x, p.y, p.z);
     };
 
+    json cheb_approx_metadata;
     SegFunApproximator<FT, ChebFun<FT>, ChebSeg<FT>> approximator(settings);
     ChebFun<FT> chebfun =
-        approximator(func, clip_distances.x, clip_distances.y);
+        approximator(func, clip_distances.x, clip_distances.y, cheb_approx_metadata);
+    res.metadata["chebyshev_interpolation"] = cheb_approx_metadata;
 
-    SegFun<FT, MonSeg<FT>> monfun = chebfun.template Convert<MonSeg<FT>>();
+    json monomial_conversion_metadata;
+    SegFun<FT, MonSeg<FT>> monfun = chebfun.template Convert<MonSeg<FT>>(monomial_conversion_metadata);
+    res.metadata["conversion_to_monomial"] = monomial_conversion_metadata;
 
-    auto roots = monfun.FindRoots();
+    json root_finding_metadata;
+    auto roots = monfun.FindRoots(root_finding_metadata);
+    res.metadata["rootfinding"] = root_finding_metadata;
 
-    TraceResult res;
     if (!roots.empty()) {
       res.hit = true;
       res.distance = roots[0];

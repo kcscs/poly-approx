@@ -1,2 +1,5 @@
 build/*
+outputs/*
+compile_commands.json
+run.sh
 

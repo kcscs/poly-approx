@@ -17,6 +17,7 @@ struct ViewConfig {
 };
 
 struct ExperimentConfig {
+  std::string title;
   enum class FLOAT_TYPE { FLOAT, DOUBLE };
   FLOAT_TYPE precision;
   std::string surface;

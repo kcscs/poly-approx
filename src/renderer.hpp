@@ -33,46 +33,43 @@ template <typename FT> class Renderer {
   // using typename Types<FT>::SurfaceFunction;
 
 public:
-  void render(T::SurfaceFunction f, CameraConfig cam_conf, ViewConfig view_conf,
+  json render(T::SurfaceFunction f, CameraConfig cam_conf, ViewConfig view_conf,
               T::gv3 light_dir, std::string outfile, TraceMethod<FT> *tracer) {
-    Logger& log = Logger::Get();
+    Logger &log = Logger::Get();
     float yedge = tanf(glm::radians(cam_conf.fovy) / 2);
     int width = cam_conf.resolution.x;
     int height = cam_conf.resolution.y;
     float xedge = static_cast<float>(width) / height * yedge;
     std::cout << "edges: " << xedge << " " << yedge << "\n";
 
-    typename T::gm4 invView = glm::inverse(glm::lookAt(
-        view_conf.eye, view_conf.at, typename T::gv3(0.0f, 1.0f, 0.0f)));
+    json results;
+
+    typename T::gv3 eye(view_conf.eye);
+    typename T::gv3 at(view_conf.at);
+
+    typename T::gm4 invView =
+        glm::inverse(glm::lookAt(eye, at, typename T::gv3(0.0f, 1.0f, 0.0f)));
 
     std::vector<unsigned char> pixels;
     pixels.reserve(width * height * 3);
 
-    double all_pixels = width * height;
+    std::vector<json> pixels_metadata;
+    pixels_metadata.reserve(width * height * 3);
 
-    ns_duration time_spent_on_cheb = ns_duration::zero();
-    ns_duration time_spent_on_mon = ns_duration::zero();
-    ns_duration time_spent_on_roots = ns_duration::zero();
+    double all_pixels = width * height;
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         float progress = (x + 1 + y * height) / all_pixels * 100;
-        double avg_ns_cheb =
-            static_cast<double>(time_spent_on_cheb.count()) / (x + y * height);
-        double avg_ns_mon =
-            static_cast<double>(time_spent_on_mon.count()) / (x + y * height);
-        double avg_ns_roots =
-            static_cast<double>(time_spent_on_roots.count()) / (x + y * height);
-        int prec = std::cout.precision();
-        std::cout.precision(2);
         std::cout << std::fixed << "\r" << (x + 1 + y * height) << "/"
-                  << (int)all_pixels << " " << progress << "%"
-                  << "  avg_times_ms (c/m/r): " << avg_ns_cheb / 1e6 << " "
-                  << avg_ns_mon / 1e6 << " " << avg_ns_roots / 1e6 << "     "
-                  << std::defaultfloat;
+                  << (int)all_pixels << " " << progress << "%    ";
         std::cout.flush();
-        std::cout.precision(prec);
         // std::cout<<x<<";"<<y<<"\n";
+
+        json pixel_data;
+        pixel_data["coordinate"] =
+            glm::uvec2(x, y); // x: horizontal rightwards, y: vertical downwards
+
         float yf = (static_cast<float>(y) / (height - 1) * 2 - 1) * -1;
         float xf = static_cast<float>(x) / (width - 1) * 2 - 1;
 
@@ -80,13 +77,17 @@ public:
         xf *= xedge;
 
         typename T::gv4 ahead = {xf, yf, -1, 1};
-        typename T::gv3 dir = typename T::gv3(invView * ahead) - view_conf.eye;
-        
-       
-        typename T::Ray r = {view_conf.eye, glm::normalize(dir)};
-        log << "render"_cat <<"Ray: "<<"d:"<<r.dir.x<<" "<<r.dir.y<<" "<<r.dir.z<<" | o:"<<r.start.x<<" "<<r.start.y<<" "<<r.start.z<<"\n";
+        typename T::gv3 dir = typename T::gv3(invView * ahead) - eye;
+
+        typename T::Ray r = {eye, glm::normalize(dir)};
+        log << "render"_cat << "Ray: " << "d:" << r.dir.x << " " << r.dir.y
+            << " " << r.dir.z << " | o:" << r.start.x << " " << r.start.y << " "
+            << r.start.z << "\n";
         typename TraceMethod<FT>::TraceResult hit =
             tracer->trace(r, f); // TraceMethod<FT>::TraceResult
+        pixel_data["hit"] = hit.hit;
+        pixel_data["distance"] = hit.distance;
+        pixel_data["trace_data"] = hit.metadata;
 
         if (hit.hit) {
 
@@ -96,7 +97,7 @@ public:
           norm.y = f(wp.x, wp.y + 0.01, wp.z) - f(wp.x, wp.y - 0.01, wp.z);
           norm.z = f(wp.x, wp.y, wp.z + 0.01) - f(wp.x, wp.y, wp.z - 0.01);
 
-          typename T::gv3 to_eye = glm::normalize(view_conf.eye - wp);
+          typename T::gv3 to_eye = glm::normalize(eye - wp);
           norm = glm::normalize(norm);
           if (glm::dot(norm, to_eye) < 0)
             norm *= -1;
@@ -125,17 +126,15 @@ public:
           pixels.push_back(0);
           pixels.push_back(0);
         }
+
+        pixels_metadata.push_back(pixel_data);
       }
     }
     std::cout << "Finished, writing to " << outfile << "\n";
-    std::cout << "average times per pixel (ms): \n"
-              << "\tchebyshev interpolation: "
-              << time_spent_on_cheb.count() / all_pixels / 1e6 << "\n";
-    std::cout << "\tconversion to monomial: "
-              << time_spent_on_mon.count() / all_pixels / 1e6 << "\n";
-    std::cout << "\troot finding: "
-              << time_spent_on_roots.count() / all_pixels / 1e6 << "\n";
 
     stbi_write_png(outfile.c_str(), width, height, 3, pixels.data(), width * 3);
+
+    results["pixels"] = pixels_metadata;
+    return results;
   }
 };

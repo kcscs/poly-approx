@@ -1,25 +1,73 @@
 {
+  "output_dir": "outputs",
   "logging": {
     "all_cats": ["init", "segment", "split", "cheb_res", 
       "cheb_interp", "interstitial", "rootfinder", "render"],
-    "print": ["init", "segment"],
-    "save": [],
+    "print": ["init"  ],
+    "save": ["init", "segment", "split", "render"],
     "print_all": false,
-    "save_all": false
+    "save_all": false,
+    "path": "log"
   },
   "experiments": [
     {
-      "precision": "float",
+      "title": "sphere test",
+      "precision": "double",
+      "surface": "sphere",
+      "camera": {
+        "resolution": [64, 64],
+        "fovy": 90.0
+      },
+      "view": { "eye": [2, 2, -2], "target": [0, 0, 0] },
+      "trace_settings": {
+        "clip": [0.0, 20.0],
+        "max_degree": 8,
+        "target_precision": 1e-15
+      }
+    },
+    {
+      "title": "torus test",
+      "precision": "double",
       "surface": "torus",
       "camera": {
         "resolution": [64, 64],
         "fovy": 90.0
       },
-      "view": { "eye": [1, 2, -1], "target": [0, 0, 0] },
+      "view": { "eye": [2, 2, -2], "target": [0, 0, 1] },
       "trace_settings": {
         "clip": [0.0, 20.0],
-        "max_degree": 8,
-        "target_precision": 1e-4
+        "max_degree": 32,
+        "target_precision": 1e-10
+      }
+    },{
+      "title": "polyapprox Torus_deg4_double_5e-14.png",
+      "precision": "double",
+      "surface": "torus",
+      "camera": {
+        "resolution": [64, 64],
+        "fovy": 90.0
+      },
+      "view": { "eye": [2, 3, -4], "target": [0, 0, 0] },
+      "trace_settings": {
+        "clip": [0.0, 20.0],
+        "max_degree": 16,
+        "target_precision": 5e-14
+      }
+    },
+
+    {
+      "title": "polyapprox Torus_deg4_float_5e-6.png",
+      "precision": "float",
+      "surface": "torus",
+      "camera": {
+        "resolution": [32, 32],
+        "fovy": 90.0
+      },
+      "view": { "eye": [2, 3, -4], "target": [0, 0, 0] },
+      "trace_settings": {
+        "clip": [0.0, 20.0],
+        "max_degree": 16,
+        "target_precision": 5e-6
       }
     }
   ]

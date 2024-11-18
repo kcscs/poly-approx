@@ -8,7 +8,8 @@ void to_json(json &j, const ExperimentConfig &c) {
            {"surface", c.surface},
            {"camera", c.camera},
            {"view", c.view},
-           {"trace_settings", c.trace_settings}};
+           {"trace_settings", c.trace_settings},
+           {"title", c.title}};
 }
 
 void from_json(const json &j, ExperimentConfig &p) {
@@ -19,6 +20,7 @@ void from_json(const json &j, ExperimentConfig &p) {
   p.camera = j["camera"];
   p.view = j["view"];
   p.trace_settings = j["trace_settings"];
+  p.title = j["title"];
 }
 
 void to_json(json &j, const CameraConfig &c) {

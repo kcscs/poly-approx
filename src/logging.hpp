@@ -24,7 +24,7 @@ public:
     cat(std::string name);
   };
 
-  static Logger &CreateOnce(LogSettings config);
+  static Logger &CreateOrRecreate(LogSettings config);
   static Logger &Get();
 
   Logger(const Logger &other) = delete;

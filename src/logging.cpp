@@ -1,5 +1,6 @@
 #include "logging.hpp"
 #include <memory>
+#include <iostream>
 #include <stdexcept>
 
 Logger::cat::cat(std::string name) : name(name) {}
@@ -13,21 +14,21 @@ Logger::Logger(LogSettings config) : conf(config) {
   print_enabled = conf.print_all;
   save_enabled = conf.save_all;
 
-  file.open(conf.path);
+  file.open(conf.path, std::ios_base::app);
 }
 
 Logger::~Logger() { file.close(); }
 
 std::unique_ptr<Logger> Logger::global_logger = nullptr;
 
-Logger &Logger::CreateOnce(LogSettings config) {
-  if (global_logger == nullptr) {
-    global_logger = std::unique_ptr<Logger>(new Logger(config));
-    return *global_logger;
-  } else {
-    throw std::logic_error(
-        "There can be only one logger and it is already initialized");
-  }
+Logger &Logger::CreateOrRecreate(LogSettings config) {
+  // if (global_logger == nullptr) {
+  global_logger = std::unique_ptr<Logger>(new Logger(config));
+  return *global_logger;
+  // } else {
+  //   throw std::logic_error(
+  //       "There can be only one logger and it is already initialized");
+  // }
 }
 
 Logger &Logger::Get() { return *global_logger; }

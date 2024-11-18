@@ -7,6 +7,7 @@
 #include "logging.hpp"
 
 struct RunConfig {
+  std::string output_dir;
   LogSettings logsettings;
   std::vector<ExperimentConfig> experiments;
 };

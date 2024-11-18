@@ -39,26 +39,34 @@ public:
 
   template <typename OtherSegT>
     requires std::derived_from<OtherSegT, Seg<FT>>
-  SegFun<FT, OtherSegT> Convert() const {
+  SegFun<FT, OtherSegT> Convert(json &metadata) const {
+    metadata["info"] = "TODO";
     std::vector<OtherSegT> conv_segments;
     conv_segments.reserve(segments.size());
     for (int i = 0; i < segments.size(); ++i) {
       conv_segments.push_back(OtherSegT::FitAtChebPoints(segments[i]));
-      // std::cout<<"asd: "<<segments[i].coeffs.size()<<" -> "<<conv_segments.back().coeffs.size()<<"\n";
+      // std::cout<<"asd: "<<segments[i].coeffs.size()<<" ->
+      // "<<conv_segments.back().coeffs.size()<<"\n";
     }
     return SegFun<FT, OtherSegT>(conv_segments);
   }
 
   const std::vector<SegT> &GetSegments() const { return segments; }
 
-  std::vector<FT> FindRoots() const {
-    Logger& log = Logger::Get();
+  std::vector<FT> FindRoots(json &metadata) const {
+    Logger &log = Logger::Get();
     std::vector<FT> roots;
+    std::vector<json> segments_metadata;
+    segments_metadata.reserve(segments.size());
     for (const auto &seg : segments) {
-      log<<Logger::cat("rootfinder")<<"coeffs: "<<seg.coeffs.size()<<"\n";
-      std::vector<FT> seg_roots = seg.FindRoots();
+      log << Logger::cat("rootfinder") << "coeffs: " << seg.coeffs.size()
+          << "\n";
+      json segment_data;
+      std::vector<FT> seg_roots = seg.FindRoots(segment_data);
       roots.insert(roots.end(), seg_roots.begin(), seg_roots.end());
+      segments_metadata.push_back(segment_data);
     }
+    metadata["segments"] = segments_metadata;
     return roots;
   }
 
@@ -86,7 +94,7 @@ public:
     target_precision = params["target_precision"];
   }
 
-  virtual FunT operator()(RRFunction f, FT x_begin, FT x_end) {
+  virtual FunT operator()(RRFunction f, FT x_begin, FT x_end, json &metadata) {
     Logger &log = Logger::Get();
     std::vector<SegT> segments;
     FT cur_begin = x_begin;
@@ -154,6 +162,12 @@ public:
       }
     }
 
+    metadata["segments"] = segments;
+    int max_deg = segments[0].deg();
+    for (const auto &s : segments)
+      if (s.deg() > max_deg)
+        max_deg = s.deg();
+    metadata["max_degree"] = max_deg;
     return {segments};
   }
 };
@@ -179,7 +193,7 @@ public:
   using typename Types<FT>::em;
 
   MonFun(std::vector<MonSeg<FT>> _segments)
-  : SegFun<FT, MonSeg<FT>>(_segments) {}
+      : SegFun<FT, MonSeg<FT>>(_segments) {}
 
 private:
 };

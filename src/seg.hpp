@@ -1,6 +1,7 @@
 #pragma once
 
 #include "exceptions.hpp"
+#include "run_config.hpp"
 #include "types.hpp"
 #include <vector>
 
@@ -26,13 +27,17 @@ public:
 
   virtual Seg<FT> Integrate() const { throw NotImplemented(); }
 
-  virtual std::vector<FT> FindRoots() const {
+  virtual std::vector<FT> FindRoots(json& metadata) const {
+    json norm_rootfind_data;
+    norm_rootfind_data["info"] = "TODO";
     std::vector<FT> roots = FindRootsNorm();
 
     for (auto &x : roots) { // Transform from [-1;1] to [begin;end]
       x = (x / 2 + static_cast<FT>(0.5)) * (end - begin) + begin;
     }
 
+    metadata["normalized_rootfinder"] = norm_rootfind_data;
+    metadata["roots"] = roots;
     return roots;
   }
 
@@ -47,3 +52,19 @@ protected:
 
   virtual std::vector<FT> FindRootsNorm() const { throw NotImplemented(); }
 };
+
+template<typename T>
+void to_json(json& j, const Seg<T>& s){
+  j["domain"] = typename Types<T>::gv2(s.begin, s.end);
+  j["coeffs"] = s.coeffs;
+  j["degree"] = s.coeffs.size()-1;
+}
+
+template<typename T>
+void from_json(const json &j, Seg<T>& s) {
+  typename Types<T>::gv2 domain = j["domain"];
+  s.begin = domain.begin;
+  s.end = domain.end;
+  s.coeffs = j["coeffs"];
+  assert(s.coeffs.size()-1 == j["degree"]);
+}
