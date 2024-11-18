@@ -18,19 +18,23 @@
 
 template <typename funcval_T> class Renderer {
   using ns_duration = std::chrono::nanoseconds;
+  using glmvec2 = glm::vec<2, funcval_T>;
+  using glmvec3 = glm::vec<3, funcval_T>;
+  using glmvec4 = glm::vec<4, funcval_T>;
+  using glmmat4 = glm::mat<4,4,funcval_T>;
 
 public:
   using Vec3 = Eigen::Matrix<funcval_T, 3, 1>;
 
   void render(std::function<funcval_T(funcval_T, funcval_T, funcval_T)> f,
-              glm::dvec3 eye, glm::dvec3 center, int width, int height,
-              float fovy_rad, glm::dvec3 light_dir, std::string outfile) {
+              glmvec3 eye, glmvec3 center, int width, int height,
+              float fovy_rad, glmvec3 light_dir, std::string outfile) {
     float yedge = tanf(fovy_rad / 2);
     float xedge = static_cast<float>(width) / height * yedge;
     std::cout << "edges: " << xedge << " " << yedge << "\n";
 
-    glm::dmat4 invView =
-        glm::inverse(glm::lookAt(eye, center, glm::dvec3(0.0f, 1.0f, 0.0f)));
+    glmmat4 invView =
+        glm::inverse(glm::lookAt(eye, center, glmvec3(0.0f, 1.0f, 0.0f)));
 
     std::vector<unsigned char> pixels;
     pixels.reserve(width * height * 3);
@@ -66,11 +70,11 @@ public:
         yf *= yedge;
         xf *= xedge;
 
-        glm::dvec4 ahead = {xf, yf, -1, 1};
-        glm::dvec3 dir = glm::dvec3(invView * ahead) - eye;
+        glmvec4 ahead = {xf, yf, -1, 1};
+        glmvec3 dir = glmvec3(invView * ahead) - eye;
 
         std::function<funcval_T(funcval_T)> func = [&](funcval_T t) {
-          glm::dvec3 p = eye + t * dir;
+          glmvec3 p = eye + t * dir;
           return f(p.x, p.y, p.z);
         };
 
@@ -78,13 +82,14 @@ public:
 
         auto t_cheb_begin = std::chrono::high_resolution_clock::now();
         // SegmentedChebyshevApproximator<funcval_T> cheb(func, 0, 20, 64, 5e-14);
-        SegmentedChebyshevApproximator<funcval_T> cheb(func, 0, 20, 64, 5e-14);
+        // SegmentedChebyshevApproximator<funcval_T> cheb(func, 0, 20, 64, 5e-14);
+        SegmentedChebyshevApproximator<funcval_T> cheb(func, 0, 20, 16, 5e-13);
         // std::cout<<"Approximated\n";
         auto t_mon_begin = std::chrono::high_resolution_clock::now();
         auto MonSegments = cheb.GetMonomSegments();
 
         auto t_roots_begin = std::chrono::high_resolution_clock::now();
-        std::vector<double> roots;
+        std::vector<funcval_T> roots;
         for (const auto &s : MonSegments) {
           // std::cout<<"root finding "<<s;
           auto r = s.FindRoots();
@@ -117,13 +122,13 @@ public:
           pixels.push_back(0);
           pixels.push_back(255);
         } else {
-          glm::dvec3 wp = eye + roots[0] * dir;
-          glm::dvec3 norm;
+          glmvec3 wp = eye + roots[0] * dir;
+          glmvec3 norm;
           norm.x = f(wp.x + 0.01, wp.y, wp.z) - f(wp.x - 0.01, wp.y, wp.z);
           norm.y = f(wp.x, wp.y + 0.01, wp.z) - f(wp.x, wp.y - 0.01, wp.z);
           norm.z = f(wp.x, wp.y, wp.z + 0.01) - f(wp.x, wp.y, wp.z - 0.01);
 
-          glm::dvec3 to_eye = glm::normalize(eye - wp);
+          glmvec3 to_eye = glm::normalize(eye - wp);
           norm = glm::normalize(norm);
           if (glm::dot(norm, to_eye) < 0)
             norm *= -1;
@@ -140,8 +145,7 @@ public:
             diffuse = 0;
 
           float specular = glm::pow(
-              glm::clamp(glm::dot(to_eye, glm::reflect(light_dir, norm)), 0.0,
-                         1.0),
+              glm::clamp(glm::dot(to_eye, glm::reflect(light_dir, norm)), static_cast<funcval_T>(0.0),static_cast<funcval_T>(1.0)),
               27);
           float col = glm::clamp(diffuse + specular, 0.0f, 1.0f);
           pixels.push_back(roots.size());
@@ -165,12 +169,12 @@ public:
 
   void
   raymarch_test_ray(std::function<funcval_T(funcval_T, funcval_T, funcval_T)> f,
-                    glm::dvec3 start, glm::dvec3 dir, glm::dvec2 interp_range,
-                    glm::dvec2 test_range, int resolution, int max_degree = 32,
+                    glmvec3 start, glmvec3 dir, glmvec2 interp_range,
+                    glmvec2 test_range, int resolution, int max_degree = 32,
                     funcval_T interp_max_error = 5e-2) {
     std::cout << "raymarch test\n";
     std::function<funcval_T(funcval_T)> func = [&](funcval_T t) {
-      glm::dvec3 p = start + t * dir;
+      glmvec3 p = start + t * dir;
       return f(p.x, p.y, p.z);
     };
 
@@ -219,9 +223,9 @@ public:
 
   void raymarch_test_pixel(
       std::function<funcval_T(funcval_T, funcval_T, funcval_T)> f,
-      glm::dvec3 eye, glm::dvec3 center, glm::ivec2 resolution,
-      glm::ivec2 pixel_coordinate, float fovy_rad, glm::dvec2 interp_range,
-      glm::dvec2 test_range, int march_resolution, int max_degree = 32,
+      glmvec3 eye, glmvec3 center, glm::ivec2 resolution,
+      glm::ivec2 pixel_coordinate, float fovy_rad, glmvec2 interp_range,
+      glmvec2 test_range, int march_resolution, int max_degree = 32,
       funcval_T interp_max_error = 5e-2) {
     float yedge = tanf(fovy_rad / 2);
     float xedge = static_cast<float>(resolution.x) / resolution.y * yedge;
@@ -234,11 +238,11 @@ public:
     yf *= yedge;
     xf *= xedge;
 
-    glm::dmat4 invView =
-        glm::inverse(glm::lookAt(eye, center, glm::dvec3(0.0f, 1.0f, 0.0f)));
+    glmmat4 invView =
+        glm::inverse(glm::lookAt(eye, center, glmvec3(0.0f, 1.0f, 0.0f)));
 
-    glm::dvec4 ahead = {xf, yf, -1, 1};
-    glm::dvec3 dir = glm::dvec3(invView * ahead) - eye;
+    glmvec4 ahead = {xf, yf, -1, 1};
+    glmvec3 dir = glmvec3(invView * ahead) - eye;
 
     raymarch_test_ray(f, eye, dir, interp_range, test_range, march_resolution,
                       max_degree, interp_max_error);

@@ -56,6 +56,7 @@ funcval_T eval_cheb(const Eigen::Matrix<funcval_T, Eigen::Dynamic, 1> &coeffs,
 
 template <typename funcval_T> struct ChebyshevSegment {
   using VectorT = Eigen::Matrix<funcval_T, Eigen::Dynamic, 1>;
+  using MatrixT = Eigen::Matrix<funcval_T, Eigen::Dynamic, Eigen::Dynamic>;
   VectorT coeffs;
   funcval_T begin, end;
 
@@ -92,7 +93,7 @@ template <typename funcval_T> struct ChebyshevSegment {
     for (int i = 0; i <= deg; ++i) {
       // xs[i] = (static_cast<funcval_T>(i) / deg)*2-1; //
       xs[i] = - cos(static_cast<funcval_T>(i) / deg * glm::pi<funcval_T>());
-      ys(i) = eval_cheb(coeffs, xs[i], -1.0,1.0);
+      ys(i) = eval_cheb(coeffs, xs[i], static_cast<funcval_T>(-1.0),static_cast<funcval_T>(1.0));
     }
 
     Eigen::Matrix<funcval_T, Eigen::Dynamic, Eigen::Dynamic> A(deg + 1,
@@ -111,6 +112,7 @@ template <typename funcval_T> struct ChebyshevSegment {
 template <typename funcval_T>
 class SegmentedChebyshevApproximator : FunctionApproximator<funcval_T> {
   using VectorT = Eigen::Matrix<funcval_T, Eigen::Dynamic, 1>;
+  using MatrixT = Eigen::Matrix<funcval_T, Eigen::Dynamic, Eigen::Dynamic>;
   using ChebyshevSegment = ChebyshevSegment<funcval_T>;
 
 private:
@@ -128,18 +130,18 @@ private:
   std::tuple<VectorT, VectorT, VectorT>
   chebyshev_interpolate(std::function<funcval_T(funcval_T)> func, int degree,
                         funcval_T a, funcval_T b) {
-    VectorXd x(degree + 1);
+    VectorT x(degree + 1);
     for (int i = 0; i < degree + 1; ++i)
       // x[i] = (b - a) / 2 * cos((pi * i) / degree) + (b + a) / 2;
       x[i] = cos((pi*i)/degree);
     // std::cout << "Chebysev points:\n" << x << "\n\n";
 
-    VectorXd vals(degree + 1);
+    VectorT vals(degree + 1);
     for (int i = 0; i < degree + 1; ++i)
       vals(i) = func((b - a) / 2 * x(i) + (b + a) / 2);
     // std::cout << "Function values:\n" << vals << "\n\n";
 
-    MatrixXd J(degree + 1, degree + 1);
+    MatrixT J(degree + 1, degree + 1);
     for (int j = 0; j < degree + 1; ++j) {
       for (int k = 0; k < degree + 1; ++k) {
         int pj = j == 0 || j == degree ? 2 : 1;
@@ -149,17 +151,17 @@ private:
     }
     // std::cout << "J:\n" << J << "\n\n";
     //
-    Eigen::JacobiSVD<MatrixXd> svd(J);
+    Eigen::JacobiSVD<MatrixT> svd(J);
     double cond = svd.singularValues()(0) / (svd.singularValues()(svd.singularValues().size()-1));
     if(cond > 3)
       std::cout<<"cond: "<<cond<<"\n";
 
-    VectorXd coeffs = J * vals;
+    VectorT coeffs = J * vals;
     // std::cout << "Chebysev coefficients:\n" << coeffs << "\n\n";
     return std::make_tuple(coeffs, x, vals);
   }
 
-  std::tuple<double, VectorT, VectorT>
+  std::tuple<double, VectorT, VectorT, funcval_T>
   calc_interstitial_error(std::function<funcval_T(funcval_T)> func,
                           VectorT coeffs, funcval_T a, funcval_T b) {
     int degree = coeffs.size() - 1;
@@ -169,14 +171,17 @@ private:
 
     VectorT y(degree);
     double interstitial_error = -1;
+    funcval_T interstitial_error_place = -1;
     for (int i = 0; i < x.size(); ++i) {
       y(i) = func(x(i));
       double approx = eval_cheb(coeffs, x(i), a, b);
       double err = abs(approx - y(i));
-      if (err > interstitial_error)
+      if (err > interstitial_error){
         interstitial_error = err;
+        interstitial_error_place = x(i);
+      }
     }
-    return std::make_tuple(interstitial_error, x, y);
+    return std::make_tuple(interstitial_error, x, y, interstitial_error_place);
   }
 
 public:
@@ -200,12 +205,13 @@ public:
     while (cur_begin + eps<funcval_T>() < x_end) {
       int cur_degree = 1;
       double err = std::numeric_limits<double>::infinity();
-      VectorXd coeffs;
+      VectorT coeffs;
       double prev_err = std::numeric_limits<double>::infinity();
       bool first = true;
       bool split = false;
       int best_degree = -1;
       double best_error = std::numeric_limits<double>::infinity();
+      funcval_T best_error_place = cur_end;
       while (err > target_precision) {
         prev_err = err;
 
@@ -219,6 +225,7 @@ public:
         if (err < best_error) {
           best_error = err;
           best_degree = cur_degree;
+          best_error_place = std::get<3>(err_res);
         }
 
         cur_degree *= 2;
@@ -229,17 +236,18 @@ public:
       }
 
       if (split /*&& cur_end-cur_begin > (x_end-x_begin)/100*/) {
-        cur_end = (cur_begin + cur_end) / 2;
-        // std::cout << "split: " << cur_begin << "-" << cur_end << " e:" << err
-        //           << "\n";
+        // cur_end = (cur_begin + cur_end) / 2;
+        cur_end = best_error_place;
+        std::cout << "split: " << cur_begin << "-" << cur_end << " e:" << err
+                  << "\n";
       } else {
         auto interp_res =
             chebyshev_interpolate(f, best_degree, cur_begin, cur_end);
         coeffs = std::get<0>(interp_res);
         auto err_res = calc_interstitial_error(f, coeffs, cur_begin, cur_end);
         err = std::get<0>(err_res);
-        // std::cout << "segment: " << cur_begin << "-" << cur_end
-        //           << " deg: " << best_degree << " err: " << err << "\n";
+        std::cout << "segment: " << cur_begin << "-" << cur_end
+                  << " deg: " << best_degree << " err: " << err << "\n";
         segments.emplace_back();
         auto &seg = segments.back();
         seg.begin = cur_begin;
@@ -327,9 +335,12 @@ public:
   /// Make sure the chebyshev segments are fitted first
   std::vector<MonomSegment<funcval_T>> GetMonomSegments() const {
 
+
     std::vector<MonomSegment<funcval_T>> mon_segments;
     mon_segments.reserve(segments.size());
     for (const auto &seg : segments) {
+      // if(seg.coeffs.size() > 5)
+      assert(seg.coeffs.size() <= 5);
       mon_segments.push_back(seg.ConvertToMonomial());
     }
 
