@@ -1,0 +1,219 @@
+{
+  "output_dir": "outputs",
+  "logging": {
+    "all_cats": [
+      "init",
+      "segment",
+      "split",
+      "cheb_res",
+      "cheb_interp",
+      "interstitial",
+      "rootfinder",
+      "render"
+    ],
+    "print": ["init"],
+    "save": ["init", "segment", "split", "render"],
+    "print_all": false,
+    "save_all": false,
+    "path": "log"
+  },
+  "experiments": [
+    {
+      "camera": {
+        "fovy": 90,
+        "resolution": [128, 128]
+      },
+      "precision": "double",
+      "surface": "sphere",
+      "title": "sphere",
+      "trace_settings": {
+        "clip": [0, 20],
+        "max_degree": 8,
+        "target_precision": 1e-8
+      },
+      "view": {
+        "eye": [2, 2, -2],
+        "target": [0, 0, 0]
+      }
+    },
+    {
+      "camera": {
+        "fovy": 90,
+        "resolution": [128, 128]
+      },
+      "enabled": true,
+      "light_dir": [
+        -0.8050469160079956, -0.22471794486045837, -0.530087947845459
+      ],
+      "precision": "double",
+      "surface": "cubic_sheet",
+      "title": "cubic_sheet",
+      "trace_settings": {
+        "clip": [0, 200],
+        "max_degree": 8,
+        "target_precision": 0.000001
+      },
+      "view": {
+        "eye": [4, 4, 4],
+        "target": [0, 0, 0]
+      }
+    },
+    {
+      "camera": {
+        "fovy": 90,
+        "resolution": [128, 128]
+      },
+      "enabled": true,
+      "light_dir": [
+        -0.6042457818984985, -0.5976111888885498, -0.43234410881996155
+      ],
+      "precision": "double",
+      "surface": "cubic_holes",
+      "title": "cubic_holes",
+      "trace_settings": {
+        "clip": [0, 200],
+        "max_degree": 8,
+        "target_precision": 1e-8
+      },
+      "view": {
+        "eye": [0.10000000149011612, 1, 3],
+        "target": [0, 0, 0]
+      }
+    },
+    {
+      "camera": {
+        "fovy": 90,
+        "resolution": [128, 128]
+      },
+      "enabled": true,
+      "light_dir": [-0.845319390296936, 0.0676407739520073, 0.4951217472553253],
+      "precision": "double",
+      "surface": "riemann",
+      "title": "riemann",
+      "trace_settings": {
+        "clip": [0, 30],
+        "max_degree": 8,
+        "target_precision": 1e-8
+      },
+      "view": {
+        "eye": [5, 1, 1],
+        "target": [0, 0, 0]
+      }
+    },
+    {
+      "camera": {
+        "fovy": 90,
+        "resolution": [128, 128]
+      },
+      "enabled": true,
+      "light_dir": [
+        0.2185877114534378, -0.6352137327194214, -0.7153221964836121
+      ],
+      "precision": "double",
+      "surface": "kummer",
+      "title": "kummer",
+      "trace_settings": {
+        "clip": [0, 60],
+        "max_degree": 8,
+        "target_precision": 1e-8
+      },
+      "view": {
+        "eye": [-4, 1, 3],
+        "target": [0, 0, 0]
+      }
+    },
+    {
+      "enabled": true,
+      "title": "torus",
+      "precision": "double",
+      "surface": "torus",
+      "camera": {
+        "resolution": [128, 128],
+        "fovy": 90
+      },
+      "view": {
+        "eye": [2, 3, -4],
+        "target": [0, 0, 0]
+      },
+      "trace_settings": {
+        "clip": [0, 20],
+        "max_degree": 8,
+        "target_precision": 1e-8
+      }
+    },
+    {
+      "enabled": true,
+      "title": "barth_sextic",
+      "precision": "double",
+      "surface": "barth_sextic",
+      "camera": {
+        "resolution": [128, 128],
+        "fovy": 90
+      },
+      "view": {
+        "eye": [-2, 0, 0],
+        "target": [0, 0, 0]
+      },
+      "trace_settings": {
+        "clip": [0, 50],
+        "max_degree": 16,
+        "target_precision": 0.001
+      }
+    },
+    {
+      "camera": {
+        "fovy": 90,
+        "resolution": [64, 64]
+      },
+      "precision": "double",
+      "surface": "sphere_sdf",
+      "title": "sphere_sdf",
+      "trace_settings": {
+        "clip": [0, 20],
+        "max_degree": 16,
+        "target_precision": 1e-5
+      },
+      "view": {
+        "eye": [2, 2, -2],
+        "target": [0, 0, 0]
+      }
+    },
+    {
+      "camera": {
+        "fovy": 90,
+        "resolution": [64, 64]
+      },
+      "precision": "double",
+      "surface": "box",
+      "title": "box",
+      "trace_settings": {
+        "clip": [0, 20],
+        "max_degree": 32,
+        "target_precision": 1e-5
+      },
+      "view": {
+        "eye": [2, 3, -4],
+        "target": [0, 0, 0]
+      }
+    },
+    {
+      "enabled": true,
+      "title": "torus_sdf",
+      "precision": "double",
+      "surface": "torus_sdf",
+      "camera": {
+        "resolution": [64, 64],
+        "fovy": 90
+      },
+      "view": {
+        "eye": [2, 3, -4],
+        "target": [0, 0, 0]
+      },
+      "trace_settings": {
+        "clip": [0, 20],
+        "max_degree": 8,
+        "target_precision": 1e-5
+      }
+    }
+  ]
+}

@@ -47,8 +47,7 @@ public:
     return *this;
   }
 
-  template <> Logger &operator<<(const cat &c);
-
+  
 private:
   LogSettings conf;
   bool print_enabled = true;
@@ -60,6 +59,8 @@ private:
 };
 
 Logger::cat operator""_cat(const char *cstr, std::size_t len);
+template <> Logger &Logger::operator<<(const cat &c);
+
 
 void to_json(json &j, const LogSettings &l);
 void from_json(const json &j, LogSettings &l);

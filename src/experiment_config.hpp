@@ -3,7 +3,7 @@
 #include <string>
 #include <glm/glm.hpp>
 
-using json = nlohmann::json;
+using json = nlohmann::json; 
 
 struct CameraConfig {
   glm::uvec2 resolution;
@@ -24,6 +24,8 @@ struct ExperimentConfig {
   CameraConfig camera;
   ViewConfig view;
   json trace_settings;
+  bool enabled = true;
+  glm::vec3 light_dir;
 };
 
 void to_json(json &j, const ExperimentConfig &c);

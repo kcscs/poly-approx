@@ -75,9 +75,14 @@ json cheb_exp(const ExperimentConfig &exp, std::string exp_dir) {
   Renderer<FT> ren;
   typename Types<FT>::SurfaceFunction surf =
       Scenes<FT>::GetSceneByName(exp.surface);
-  return ren.render(surf, exp.camera, exp.view,
-                    glm::normalize(glm::vec3(1.0f, -3.0f, 1.0f)),
-                    exp_dir + "/render.png", &tracer);
+
+  // old light_dir: 1, -3, 1
+  std::string image_name = "render.png";
+  json render_data = ren.render(surf, exp.camera, exp.view,
+                                exp.light_dir,
+                                exp_dir + "/" + image_name, &tracer);
+  render_data["image"] = image_name;
+  return render_data;
 }
 
 // Run experiments
@@ -92,6 +97,11 @@ void run(const RunConfig &config) {
   std::string logoutput = config.logsettings.path;
 
   for (const ExperimentConfig &exp : config.experiments) {
+    if (!exp.enabled) {
+      log << "init"_cat << "skipping " << exp.title << "\n";
+      continue;
+    }
+
     std::filesystem::create_directory(workdir + "/" + exp.title);
     LogSettings logset = config.logsettings;
     std::string exp_dir = workdir + "/" + exp.title;

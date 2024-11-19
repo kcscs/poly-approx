@@ -1,5 +1,6 @@
 #include "experiment_config.hpp"
 #include "glm_parsers.hpp"
+#include <glm/gtx/transform2.hpp>
 
 void to_json(json &j, const ExperimentConfig &c) {
   j = json{{"precision", c.precision == ExperimentConfig::FLOAT_TYPE::FLOAT
@@ -9,7 +10,9 @@ void to_json(json &j, const ExperimentConfig &c) {
            {"camera", c.camera},
            {"view", c.view},
            {"trace_settings", c.trace_settings},
-           {"title", c.title}};
+           {"title", c.title},
+           {"enabled", c.enabled},
+           {"light_dir", c.light_dir}};
 }
 
 void from_json(const json &j, ExperimentConfig &p) {
@@ -21,6 +24,17 @@ void from_json(const json &j, ExperimentConfig &p) {
   p.view = j["view"];
   p.trace_settings = j["trace_settings"];
   p.title = j["title"];
+  p.enabled = j.value("enabled", true);
+
+  glm::vec4 default_light_dir = glm::vec4(p.view.at - p.view.eye, 1);
+  default_light_dir =
+      glm::rotate(glm::radians(40.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
+      default_light_dir;
+  default_light_dir =
+      glm::rotate(glm::radians(-30.0f), glm::vec3(1.0f, 0.0f, 0.0f)) *
+      default_light_dir;
+
+  p.light_dir = glm::normalize(j.value("light_dir", default_light_dir));
 }
 
 void to_json(json &j, const CameraConfig &c) {

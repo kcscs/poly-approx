@@ -12,7 +12,7 @@ template <glm::length_t L, typename float_T> struct adl_serializer<glm::vec<L, f
     for (int i = 0; i < L; ++i) {
       d[i] = vec[i];
     }
-    j = json{d};
+    j = d;
   }
 
   static void from_json(const json &j, gvec &vec) {
