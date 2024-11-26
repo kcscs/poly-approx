@@ -4,11 +4,13 @@
 #include "logging.hpp"
 #include "monseg.hpp"
 #include "seg.hpp"
+#include "split_strategy.hpp"
 #include "types.hpp"
 #include <Eigen/QR>
 #include <concepts>
 #include <glm/glm.hpp>
 #include <iostream>
+#include <memory>
 #include <vector>
 
 template <typename FT> class Fun : public Types<FT> {
@@ -40,7 +42,7 @@ public:
   template <typename OtherSegT>
     requires std::derived_from<OtherSegT, Seg<FT>>
   SegFun<FT, OtherSegT> Convert(json &metadata) const {
-    metadata["info"] = "TODO";
+    // metadata["info"] = "TODO";
     std::vector<OtherSegT> conv_segments;
     conv_segments.reserve(segments.size());
     for (int i = 0; i < segments.size(); ++i) {
@@ -48,6 +50,7 @@ public:
       // std::cout<<"asd: "<<segments[i].coeffs.size()<<" ->
       // "<<conv_segments.back().coeffs.size()<<"\n";
     }
+    metadata["converted_segments"] = conv_segments;
     return SegFun<FT, OtherSegT>(conv_segments);
   }
 
@@ -88,10 +91,14 @@ public:
   int split_degree;
   FT target_precision;
 
+protected:
+  std::unique_ptr<SplitStrategy<FT>> split_strategy;
+
 public:
   SegFunApproximator(json params) {
     split_degree = params["max_degree"];
     target_precision = params["target_precision"];
+    split_strategy = CreateSplitStrategy<FT>(params);
   }
 
   virtual FunT operator()(RRFunction f, FT x_begin, FT x_end, json &metadata) {
@@ -105,13 +112,13 @@ public:
         << x_end << "\n";
     while (cur_begin + T::eps < x_end) {
       int cur_degree = 1;
-      double err = std::numeric_limits<double>::infinity();
+      FT err = std::numeric_limits<double>::infinity();
       ev coeffs;
-      double prev_err = std::numeric_limits<double>::infinity();
+      FT prev_err = std::numeric_limits<double>::infinity();
       bool first = true;
       bool split = false;
       int best_degree = -1;
-      double best_error = std::numeric_limits<double>::infinity();
+      FT best_error = std::numeric_limits<double>::infinity();
       FT best_error_place = cur_end;
       while (err > target_precision) {
         prev_err = err;
@@ -141,7 +148,10 @@ public:
 
       if (split /*&& cur_end-cur_begin > (x_end-x_begin)/100*/) {
         // cur_end = (cur_begin + cur_end) / 2;
-        cur_end = best_error_place;
+
+        SplitContext<FT> split_context;
+        split_context.max_error_place = best_error_place;
+        cur_end = split_strategy->split(cur_begin,cur_end,split_context);
         log << Logger::cat("split") << "split: " << cur_begin << "-" << cur_end
             << " e:" << err << "\n";
       } else {

@@ -13,10 +13,13 @@ template <typename FT> struct MonSeg : public Seg<FT> {
   using Seg<FT>::coeffs;
   using Seg<FT>::begin;
   using Seg<FT>::end;
+  using Seg<FT>::min_val;
+  using Seg<FT>::max_val;
 
 public:
-  MonSeg(std::vector<FT> coeffs, FT begin, FT end)
-      : Seg<FT>(coeffs, begin, end) {}
+  MonSeg(std::vector<FT> coeffs, FT begin, FT end, FT min_val = 0,
+         FT max_val = 1)
+      : Seg<FT>(coeffs, begin, end, min_val, max_val) {}
 
   static MonSeg<FT> FitAtChebPoints(const Seg<FT> &other) {
     const int deg = other.coeffs.size() - 1;
@@ -42,7 +45,7 @@ public:
       mon_coeffs_vec[i] = mon_coeffs(i);
     }
 
-    return MonSeg<FT>(mon_coeffs_vec, other.begin, other.end);
+    return MonSeg<FT>(mon_coeffs_vec, other.begin, other.end, other.min_val, other.max_val);
   }
 
   Seg<FT> Differentiate() const override { return TDifferentiate(); }
@@ -52,16 +55,16 @@ public:
     std::vector<FT> dc(c.size() - 1);
     int ddeg = c.size() - 2;
     for (int i = 0; i <= ddeg; ++i) {
-      dc[i] = c[i + 1] * (i + 1);
+      dc[i] = c[i + 1] * (i + 1) * (max_val-min_val);
     }
 
-    return MonSeg<FT>(dc, begin, end);
+    return MonSeg<FT>(dc, begin, end, 0, 1);
   }
 
-  FT EvalNorm(FT x) const override { return eval_mon(coeffs, x, begin, end); }
+  FT EvalNorm(FT x) const override { return eval_mon(coeffs, x); }
 
 private:
-  static FT eval_mon(const std::vector<FT> &coeffs, FT x, FT a, FT b) {
+  static FT eval_mon(const std::vector<FT> &coeffs, FT x) {
     int deg = coeffs.size() - 1;
     if (deg == 0)
       return coeffs[0];
@@ -82,28 +85,38 @@ private:
     assert(c.size() > 0);
     const int deg = c.size() - 1;
     log << Logger::cat("rootfinder");
+    log << "Note: FindRootsNorm works without normalized range\n";
     log << "fr " << begin << "-" << end << " d: " << deg << "\n";
     if (deg == 0)
       throw std::invalid_argument("Infinite roots");
 
     if (deg == 1) {
-      FT r = -c[0] / c[1];
+      // FT r = (-min_val/(max_val-min_val)  -c[0]) / c[1];
+      FT r = (-min_val/(max_val-min_val)  -c[0]) / c[1];
       return abs(r) <= 1 ? std::vector<FT>({r}) : std::vector<FT>();
     }
 
     if (deg == 2) {
-      FT D = c[1] * c[1] - 4 * c[2] * c[0];
+      // FT D = c[1] * c[1] - 4 * c[2] * c[0];
+      FT ran = max_val-min_val;
+      FT sqrtran = glm::sqrt(ran);
+      FT D = ran*(c[1]*c[1]-4*c[2]*c[0])-min_val*4*c[2];
 
       if (D < -eps)
         return std::vector<FT>();
       if (abs(D) < eps) {
-        FT r = -c[1] / (2 * c[2]);
+        // FT r = -c[1] / (2 * c[2]);
+        
+        FT r = -c[1]*sqrtran/(2*c[2]*sqrtran);
         return abs(r) <= 1 ? std::vector<FT>({r}) : std::vector<FT>();
       } else {
         FT sqrtD = sqrt(D);
         FT sgnb = c[1] < 0 ? -1 : 1;
-        FT r1 = -2 * c[0] / (c[1] + sgnb * sqrtD);
-        FT r2 = -(c[1] + sgnb * sqrtD) / (2 * c[2]);
+        // FT r1 = -2 * c[0] / (c[1] + sgnb * sqrtD);
+        // FT r2 = -(c[1] + sgnb * sqrtD) / (2 * c[2]);
+
+        FT r1 = (-2*c[0]*ran-2*min_val)/(c[1]*ran+sgnb*sqrtran*sqrtD);
+        FT r2 = -(c[1]*sqrtran+sgnb*sqrtD)/(2*c[2]*sqrtran);
 
         std::vector<FT> roots;
         if (abs(r1) <= 1)
@@ -125,8 +138,9 @@ private:
 
       std::vector<FT> border_values(borders.size());
       for (int i = 0; i < borders.size(); ++i) {
-        border_values[i] = eval_mon(c, borders[i], static_cast<FT>(-1.0),
-                                    static_cast<FT>(1.0));
+        border_values[i] = MonSeg<FT>(c, static_cast<FT>(-1.0),
+                                      static_cast<FT>(1.0), min_val, max_val)
+                               .Eval(borders[i]);
       }
 
       std::vector<FT> roots;
@@ -138,7 +152,10 @@ private:
           continue;
 
         FT xc = (borders[i] + borders[i + 1]) / 2;
-        FT vc = eval_mon(c, xc, static_cast<FT>(-1.0), static_cast<FT>(1.0));
+        // FT vc = Eval(c, xc, static_cast<FT>(-1.0), static_cast<FT>(1.0));
+        FT vc = MonSeg<FT>(c, static_cast<FT>(-1.0), static_cast<FT>(1.0),
+                           min_val, max_val)
+                    .Eval(xc);
         if (vl * vc > eps) {
           vl = vc;
           xl = xc;
@@ -156,10 +173,17 @@ private:
           while (abs(xn - xn_prev) > eps * 50 && xn >= xl && xn <= xr &&
                  step < max_steps) {
             xn_prev = xn;
-            xn = xn -
-                 eval_mon(c, xn, static_cast<FT>(-1.0), static_cast<FT>(1.0)) /
-                     eval_mon(derivative.coeffs, xn, static_cast<FT>(-1.0),
-                              static_cast<FT>(1.0));
+            // xn = xn -
+            //      Eval(c, xn, static_cast<FT>(-1.0), static_cast<FT>(1.0)) /
+            //          Eval(derivative.coeffs, xn, static_cast<FT>(-1.0),
+            //                   static_cast<FT>(1.0));
+            xn = xn - MonSeg<FT>(c, static_cast<FT>(-1.0), static_cast<FT>(1.0),
+                                 min_val, max_val)
+                              .Eval(xn) /
+                          MonSeg<FT>(derivative.coeffs, static_cast<FT>(-1.0),
+                                     static_cast<FT>(1.0), min_val, max_val)
+                              .Eval(xc);
+
             ++step;
           }
           if (xn < xl) {

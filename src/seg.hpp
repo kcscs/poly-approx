@@ -12,15 +12,16 @@ template <typename FT> struct Seg : Types<FT> {
 public:
   /// Contains the coefficients in increasing order by degree
   std::vector<FT> coeffs;
-  FT begin, end;
+  FT begin, end, min_val, max_val;
 
-  Seg(std::vector<FT> coeffs, FT begin, FT end)
-      : coeffs(coeffs), begin(begin), end(end) {}
+  Seg(std::vector<FT> coeffs, FT begin, FT end, FT min_val = 0, FT max_val = 1)
+      : coeffs(coeffs), begin(begin), end(end), min_val(min_val), max_val(max_val) {}
 
   virtual FT Eval(FT x) const {
     x = (2 * x - (begin + end)) / (end - begin);
-
-    return EvalNorm(x);
+    FT y = EvalNorm(x);
+    y = y*(max_val-min_val) + min_val;
+    return y;
   }
 
   virtual Seg<FT> Differentiate() const { throw NotImplemented(); }
@@ -58,6 +59,7 @@ void to_json(json& j, const Seg<T>& s){
   j["domain"] = typename Types<T>::gv2(s.begin, s.end);
   j["coeffs"] = s.coeffs;
   j["degree"] = s.coeffs.size()-1;
+  j["range"] = typename Types<T>::gv2(s.min_val, s.max_val);
 }
 
 template<typename T>
@@ -67,4 +69,7 @@ void from_json(const json &j, Seg<T>& s) {
   s.end = domain.end;
   s.coeffs = j["coeffs"];
   assert(s.coeffs.size()-1 == j["degree"]);
+  typename Types<T>::gv2 range = j["range"];
+  s.min_val = range.x;
+  s.max_val = range.y;
 }

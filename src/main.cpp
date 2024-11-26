@@ -16,6 +16,7 @@
 
 #include <argparse/argparse.hpp>
 #include <glm/glm.hpp>
+#include <memory>
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 #include <omp.h>
@@ -71,7 +72,20 @@ int main(int argc, char *argv[]) {
 
 template <typename FT>
 json cheb_exp(const ExperimentConfig &exp, std::string exp_dir) {
-  PolynomialTracer<FT> tracer(exp.trace_settings);
+  Logger& log = Logger::Get();
+
+  std::unique_ptr<PolynomialTracer<FT>> tracer;
+  std::string trace_method = exp.trace_settings.value("algorithm", "global_chebyshev");
+  log << "init"_cat << "Trace method: "<<trace_method<<"\n";
+  if(trace_method == "global_chebyshev")
+    tracer = std::make_unique<PolynomialTracer<FT>>(exp.trace_settings);
+  else if(trace_method == "first_root_chebyshev")
+    tracer = std::make_unique<FirstRootPolynomialTracer<FT>>(exp.trace_settings);
+  else {
+    log << "unknown trace algorithm\n";
+    return json("ERROR - unknown trace algorithm");
+  }
+
   Renderer<FT> ren;
   typename Types<FT>::SurfaceFunction surf =
       Scenes<FT>::GetSceneByName(exp.surface);
@@ -80,7 +94,7 @@ json cheb_exp(const ExperimentConfig &exp, std::string exp_dir) {
   std::string image_name = "render.png";
   json render_data = ren.render(surf, exp.camera, exp.view,
                                 exp.light_dir,
-                                exp_dir + "/" + image_name, &tracer);
+                                exp_dir + "/" + image_name, tracer.get());
   render_data["image"] = image_name;
   return render_data;
 }
@@ -107,13 +121,6 @@ void run(const RunConfig &config) {
     std::string exp_dir = workdir + "/" + exp.title;
     logset.path = workdir + "/" + exp.title + "/" + logoutput;
     Logger &log = Logger::CreateOrRecreate(logset);
-    MonSeg<float> segf({}, 3, 5);
-    MonSeg<double> segd({}, 3, 5);
-
-    ChebSeg<float> csf({}, 3, 5);
-    ChebSeg<double> csd({}, 3, 5);
-
-    MonSeg<float> conv = MonSeg<float>::FitAtChebPoints(csf);
 
     json metadata;
     if (exp.precision == ExperimentConfig::FLOAT_TYPE::FLOAT) {

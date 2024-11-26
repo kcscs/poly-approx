@@ -1,0 +1,32 @@
+{
+  "output_dir": "outputs_debug",
+  "logging": {
+    "all_cats": ["init", "segment", "split", "cheb_res", 
+      "cheb_interp", "interstitial", "rootfinder", "render"],
+    "print": ["init", "split", "segment", "render"   ],
+    "save": ["init", "segment", "split", "render" ],
+    "print_all": false,
+    "save_all": false,
+    "path": "log"
+  },
+  "experiments": [
+    {
+      "enabled": true,
+      "title": "sphere",
+      "precision": "double",
+      "surface": "sphere",
+      "camera": {
+        "resolution": [32, 32],
+        "fovy": 90.0
+      },
+      "view": { "eye": [-2, 0, 0], "target": [0, 0, 0] },
+      "trace_settings": {
+        "clip": [0.0, 200.0],
+        "max_degree": 16,
+        "target_precision": 1e-15,
+        "algorithm": "first_root_chebyshev",
+        "split_strategy": "split_at_half"
+      }
+    }  
+  ]
+}

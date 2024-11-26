@@ -3,6 +3,7 @@
 #include "seg.hpp"
 #include <glm/gtc/constants.hpp>
 #include <iostream>
+#include <limits>
 
 template <typename FT> struct ChebSeg : public Seg<FT> {
   using T = Types<FT>;
@@ -13,8 +14,8 @@ template <typename FT> struct ChebSeg : public Seg<FT> {
   using typename T::ev;
 
 public:
-  ChebSeg(std::vector<FT> coeffs, FT begin, FT end)
-      : Seg<FT>(coeffs, begin, end) {}
+  ChebSeg(std::vector<FT> coeffs, FT begin, FT end, FT min_val = 0, FT max_val = 1)
+      : Seg<FT>(coeffs, begin, end, min_val, max_val) {}
 
   FT EvalNorm(FT x) const override {
 
@@ -83,9 +84,28 @@ public:
     log << "Transformed points:\n" << x << "\n\n";
 
     ev vals(degree + 1);
-    for (int i = 0; i < degree + 1; ++i)
+    FT min_val = std::numeric_limits<FT>::max();
+    FT max_val = std::numeric_limits<FT>::min();
+    for (int i = 0; i < degree + 1; ++i){
       vals(i) = func(x[i]);
-    log << "Function values:\n" << vals << "\n\n";
+      if(vals(i) < min_val)
+        min_val = vals(i);
+      if(vals(i) > max_val)
+        max_val = vals(i);
+    }
+
+    FT range = max_val - min_val;
+    log << "Function values:\n";
+    for (int i = 0; i < degree + 1; ++i){
+      log << vals(i);
+      vals(i) = (vals(i)-min_val)/range;
+      log << " (" << vals(i) << ")\n";
+    }
+
+    log << "Function range: "<<min_val<<"-"<<max_val<<"\n";
+    log << "Normalizing to 0-1\n";
+
+    
 
     em J(degree + 1, degree + 1);
     for (int j = 0; j < degree + 1; ++j) {
@@ -110,6 +130,6 @@ public:
     for (int i = 0; i < coeffs.size(); i++) {
       coeff_vec[i] = coeffs(i);
     }
-    return {coeff_vec, a, b};
+    return {coeff_vec, a, b, min_val, max_val};
   }
 };

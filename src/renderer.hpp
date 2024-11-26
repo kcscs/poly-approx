@@ -50,16 +50,18 @@ public:
     typename T::gm4 invView =
         glm::inverse(glm::lookAt(eye, at, typename T::gv3(0.0f, 1.0f, 0.0f)));
 
-    std::vector<unsigned char> pixels;
-    pixels.reserve(width * height * 3);
+    std::vector<unsigned char> pixels(width*height*3);
+    // pixels.reserve(width * height * 3);
 
-    std::vector<json> pixels_metadata;
-    pixels_metadata.reserve(width * height * 3);
+    std::vector<json> pixels_metadata(width*height*3);
+    // pixels_metadata.reserve(width * height * 3);
 
     double all_pixels = width * height;
 
+    // #pragma omp parallel for num_threads(8)
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
+        size_t px_idx = (y*width+x)*3;
         float progress = (x + 1 + y * height) / all_pixels * 100;
         std::cout << std::fixed << "\r" << (x + 1 + y * height) << "/"
                   << (int)all_pixels << " " << progress << "%    ";
@@ -82,7 +84,7 @@ public:
         typename T::Ray r = {eye, glm::normalize(dir)};
         log << "render"_cat << "Ray: " << "d:" << r.dir.x << " " << r.dir.y
             << " " << r.dir.z << " | o:" << r.start.x << " " << r.start.y << " "
-            << r.start.z << "\n";
+            << r.start.z << " px: "<<x<<","<<y<< "\n";
         typename TraceMethod<FT>::TraceResult hit =
             tracer->trace(r, f); // TraceMethod<FT>::TraceResult
         pixel_data["hit"] = hit.hit;
@@ -118,16 +120,16 @@ public:
                          static_cast<FT>(0.0), static_cast<FT>(1.0)),
               27);
           float col = glm::clamp(diffuse + specular, 0.0f, 1.0f);
-          pixels.push_back(col * 255);
-          pixels.push_back(col * 255);
-          pixels.push_back(col * 255);
+          pixels[px_idx] = col*255;
+          pixels[px_idx+1] = col*255;
+          pixels[px_idx+2] = col*255;
         } else {
-          pixels.push_back(255);
-          pixels.push_back(0);
-          pixels.push_back(0);
+          pixels[px_idx] = 255;
+          pixels[px_idx+1] = 0;
+          pixels[px_idx+2] = 0;
         }
 
-        pixels_metadata.push_back(pixel_data);
+        pixels_metadata[y*width+x] = pixel_data;
       }
     }
     std::cout << "Finished, writing to " << outfile << "\n";
