@@ -1,0 +1,38 @@
+{
+    "camera": {
+        "fovy": 90.0,
+        "resolution": [
+            128,
+            128
+        ]
+    },
+    "enabled": true,
+    "light_dir": [
+        -0.6042457818984985,
+        -0.5976111888885498,
+        -0.43234410881996155
+    ],
+    "precision": "double",
+    "surface": "cubic_hole",
+    "title": "cubic_hole",
+    "trace_settings": {
+        "clip": [
+            0.0,
+            200.0
+        ],
+        "max_degree": 8,
+        "target_precision": 1e-08
+    },
+    "view": {
+        "eye": [
+            0.10000000149011612,
+            1.0,
+            3.0
+        ],
+        "target": [
+            0.0,
+            0.0,
+            0.0
+        ]
+    }
+}
