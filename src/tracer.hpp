@@ -7,6 +7,8 @@
 #include "logging.hpp"
 #include "monseg.hpp"
 #include "types.hpp"
+#include "split_strategy.hpp"
+#include "stop_strategy.hpp"
 #include <limits>
 #include <memory>
 
@@ -82,6 +84,7 @@ public:
     max_degree = settings["max_degree"];
     target_precision = settings["target_precision"];
     split_strategy = CreateSplitStrategy<FT>(settings);
+    stop_strategy = CreateStopStrategy<FT>(settings);
   }
 
   TraceResult trace(T::Ray ray, T::SurfaceFunction f) const override {
@@ -99,6 +102,8 @@ public:
     std::vector<ChebSeg<FT>> computed_cheb_segments;
     std::vector<MonSeg<FT>> computed_mon_segments;
 
+    stop_strategy->reset();
+
     while (cur_begin < this->clip_distances.y) {
       ChebSeg<FT> seg =
           ChebSeg<FT>::Interpolate(func, max_degree, cur_begin, cur_end);
@@ -106,8 +111,10 @@ public:
       auto err = seg.Error(func);
       FT err_val = std::get<0>(err);
       FT max_err_place = std::get<3>(err);
+      seg.metadata["interstitial_error"] = err_val;
+      seg.metadata["interstitial_error_max_loc"] = max_err_place;
 
-      if (target_precision < err_val) {
+      if (!stop_strategy->stop(err_val)) {
         SplitContext<FT> ctx;
         ctx.max_error_place = max_err_place;
         log << "split"_cat << "split: " << cur_begin << "-" << cur_end
@@ -133,6 +140,7 @@ public:
         } else {
           cur_begin = cur_end;
           cur_end = this->clip_distances.y;
+          stop_strategy->reset();
         }
       }
     }
@@ -147,4 +155,5 @@ protected:
   FT target_precision;
 
   std::unique_ptr<SplitStrategy<FT>> split_strategy;
+  std::unique_ptr<StopStrategy<FT>> stop_strategy;
 };

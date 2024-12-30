@@ -3,8 +3,8 @@
   "logging": {
     "all_cats": ["init", "segment", "split", "cheb_res", 
       "cheb_interp", "interstitial", "rootfinder", "render"],
-    "print": ["init", "split", "segment", "render"   ],
-    "save": ["init", "segment", "split", "render" ],
+    "print": ["init", "segment", "render"],
+    "save": ["init", "segment", "split", "render", "interstitial", "cheb_res", "cheb_interp" ],
     "print_all": false,
     "save_all": false,
     "path": "log"
@@ -12,20 +12,21 @@
   "experiments": [
     {
       "enabled": true,
-      "title": "sphere",
+      "title": "barth_sextic",
       "precision": "double",
-      "surface": "sphere",
+      "surface": "barth_sextic",
       "camera": {
         "resolution": [32, 32],
         "fovy": 90.0
       },
-      "view": { "eye": [-2, 0, 0], "target": [0, 0, 0] },
+      "view": { "eye": [-4, 2, 4], "target": [0, 0, 0] },
       "trace_settings": {
-        "clip": [0.0, 200.0],
+        "clip": [0.1, 20.0],
         "max_degree": 16,
-        "target_precision": 1e-15,
+        "target_precision": 1e-10,
         "algorithm": "first_root_chebyshev",
-        "split_strategy": "split_at_half"
+        "split_strategy": "split_at_half",
+        "stop_strategy": "error_change_threshold"
       }
     }  
   ]

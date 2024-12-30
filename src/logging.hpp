@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <unordered_set>
+#include <glm/glm.hpp>
 
 using json = nlohmann::json;
 
@@ -45,6 +46,21 @@ public:
       *this << v << ",";
     *this << "]";
     return *this;
+  }
+
+
+  template <typename T> Logger& operator<<(const glm::mat<4, 4, T>& val) {
+      *this << "mat4 [";
+      for (int i = 0; i < 4; ++i) { // old code before 2024.12.29 wrote the transpose of the matrix
+          *this << val[0][i];
+          for (int j = 1; j < 4; ++j) {
+              *this << ", " << val[j][i];
+          }
+          if (i < 3)
+              *this << "; ";
+      }
+      *this << "]";
+      return *this;
   }
 
   

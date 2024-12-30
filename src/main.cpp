@@ -25,6 +25,8 @@ void run(const RunConfig &config);
 
 int main(int argc, char *argv[]) {
 
+  std::ios_base::sync_with_stdio(false);
+
   argparse::ArgumentParser program("Polynomial tracer");
   program.add_argument("config")
       .help("Path to configuration file describing tests")
@@ -104,7 +106,7 @@ void run(const RunConfig &config) {
   Logger &log = Logger::Get();
 
   auto now = std::chrono::system_clock::now();
-  std::string timestamp_str = std::format("{:%Y-%m-%d_%H:%M:%S}", now);
+  std::string timestamp_str = std::format("{:%Y-%m-%d_%H-%M-%S}", now);
   std::string workdir = config.output_dir + "/" + timestamp_str;
   std::filesystem::create_directories(workdir);
 

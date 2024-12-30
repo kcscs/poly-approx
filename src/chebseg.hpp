@@ -4,12 +4,16 @@
 #include <glm/gtc/constants.hpp>
 #include <iostream>
 #include <limits>
+#include <cmath>
+#include <format>
 
 template <typename FT> struct ChebSeg : public Seg<FT> {
   using T = Types<FT>;
   using Seg<FT>::coeffs;
   using Seg<FT>::begin;
   using Seg<FT>::end;
+  using Seg<FT>::min_val;
+  using Seg<FT>::max_val;
   using typename T::em;
   using typename T::ev;
 
@@ -48,16 +52,17 @@ public:
     int degree = this->deg();
     ev x(degree);
     for (int i = 1; i < 2 * degree + 1; i += 2)
-      x(i / 2) = (end - begin) / 2 * cos((T::pi * i) / (2 * degree)) +
-                 (end + begin) / 2;
+      x(i / 2) = cos((T::pi * i) / (2 * degree));
 
     ev y(degree);
     ET interstitial_error = -1;
     FT interstitial_error_place = -1;
     log << "calculating error\ncoeffs: " << coeffs << "\n";
+    log << "scaling min and max values: "<<min_val<<" "<<max_val<<"\n";
     for (int i = 0; i < x.size(); ++i) {
-      y(i) = ground_truth(x(i));
-      FT approx = this->Eval(x(i));
+      FT x2 = (end-begin)/2 * x(i) + (end + begin)/2;
+      y(i) = (ground_truth(x2)-min_val)/(max_val-min_val);
+      FT approx = this->EvalNorm(x(i));
       ET err = abs(static_cast<ET>(approx) - y(i));
       log << "at " << x(i) << " gt:" << y(i) << " approx:" << approx
           << " err:" << err << "\n";
@@ -98,8 +103,12 @@ public:
     log << "Function values:\n";
     for (int i = 0; i < degree + 1; ++i){
       log << vals(i);
+      FT ulp = std::nextafter(vals(i), std::numeric_limits<FT>::infinity()) - vals(i);
+      log << " ulp: "<<std::format("{:.0e}", ulp)<< "   ";
       vals(i) = (vals(i)-min_val)/range;
-      log << " (" << vals(i) << ")\n";
+      log << " (" << vals(i);
+      ulp = std::nextafter(vals(i), std::numeric_limits<FT>::infinity()) - vals(i);
+      log << " ulp: "<<std::format("{:.0e}", ulp)<< ")\n";
     }
 
     log << "Function range: "<<min_val<<"-"<<max_val<<"\n";

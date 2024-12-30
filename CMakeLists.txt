@@ -21,6 +21,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # SET (CMAKE_OBJDUMP "/usr/bin/llvm-objdump")
 # SET (CMAKE_RANLIB  "/usr/bin/llvm-ranlib")
 
+#if (MSVC)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+#endif(MSVC)
+
 project(cheb_renderer)
 
 set(CMAKE_BUILD_TYPE Debug)

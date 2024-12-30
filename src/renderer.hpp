@@ -49,7 +49,7 @@ public:
 
     typename T::gm4 invView =
         glm::inverse(glm::lookAt(eye, at, typename T::gv3(0.0f, 1.0f, 0.0f)));
-
+    log << "render"_cat << "invView: " << invView << "\n";
     std::vector<unsigned char> pixels(width*height*3);
     // pixels.reserve(width * height * 3);
 
