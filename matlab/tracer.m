@@ -2,7 +2,7 @@ RES = [32 32];
 FOVY = deg2rad(90);
 EYE = [-4;2;4];
 TARGET = [0;0;0];
-CLIP = [0.1 10.050000000745058];
+CLIP = [0.1 20.050000000745058];
 
 function val = torus(p)
     % torus
@@ -24,13 +24,13 @@ function val = barth_sextic(p)
 end
 
 function val = sphere(p)
-    R = 1;
+    R = 0.5;
     val = norm(p)-R;
 end
 
 
 function val = surface_func(p)
-    val = barth_sextic(p);
+    val = torus(p);
 end
 
 
@@ -62,6 +62,9 @@ viewProj = perspective * view;
 invViewProj = inv(viewProj);
 
 img = zeros([RES(1),RES(2),3]);
+
+max_err = 0;
+avg_err = 0;
 
 for Y = 1:RES(2)
     for X = 1:RES(1)
@@ -108,6 +111,10 @@ for Y = 1:RES(2)
             errors(e) = abs(rayFunc(next_cheb_points(e))-approx(next_cheb_points(e)));
            end
            err = norm(errors, inf)
+           if err > max_err
+              max_err = err;
+           end
+           avg_err = avg_err + err;
        end
 
        r = roots(approx)
@@ -129,6 +136,10 @@ for Y = 1:RES(2)
           LIGHT_DIR = [0.08105321228504181; -0.7479685544967651;-0.6379234790802002];
           LIGHT_DIR = LIGHT_DIR/norm(LIGHT_DIR,2);
           diffuse = dot(n, -LIGHT_DIR);
+
+          if diffuse < 0
+              diffuse = 0;
+          end
             
           img(Y,X,1) = diffuse;
           img(Y,X,2) = diffuse;
@@ -140,4 +151,7 @@ for Y = 1:RES(2)
     end
 end
 
-imwrite(img,"asd_cheb.png")
+avg_err = avg_err / (RES(1)*RES(2))
+max_err
+
+%imwrite(img,"torus_cheb.png")
