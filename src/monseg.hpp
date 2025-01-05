@@ -8,6 +8,7 @@
 #include <vector>
 
 template <typename FT> struct MonSeg : public Seg<FT> {
+  using T = Types<FT>;
   using typename Seg<FT>::T::em;
   using typename Seg<FT>::T::ev;
   using Seg<FT>::coeffs;
@@ -20,6 +21,71 @@ public:
   MonSeg(std::vector<FT> coeffs, FT begin, FT end, FT min_val = 0,
          FT max_val = 1)
       : Seg<FT>(coeffs, begin, end, min_val, max_val) {}
+
+  static MonSeg<FT> Interpolate(T::RRFunction func, int degree, FT a, FT b) {
+      Logger& log = Logger::Get();
+      log << Logger::cat("monom_interp");
+      ev x(degree + 1);
+      for (int i = 0; i < degree + 1; ++i)
+          x[i] = cos((T::pi * i) / degree);
+      log << "Chebysev points:\n" << x << "\n\n";
+
+      for (int i = 0; i < degree + 1; ++i)
+          x[i] = (b - a) / 2 * x(i) + (b + a) / 2;
+      log << "Transformed points:\n" << x << "\n\n";
+
+      ev vals(degree + 1);
+      FT min_val = std::numeric_limits<FT>::max();
+      FT max_val = std::numeric_limits<FT>::min();
+      for (int i = 0; i < degree + 1; ++i) {
+          vals(i) = func(x[i]);
+          if (vals(i) < min_val)
+              min_val = vals(i);
+          if (vals(i) > max_val)
+              max_val = vals(i);
+      }
+
+      FT range = max_val - min_val;
+      log << "Function values:\n";
+      for (int i = 0; i < degree + 1; ++i) {
+          log << vals(i);
+          FT ulp = std::nextafter(vals(i), std::numeric_limits<FT>::infinity()) - vals(i);
+          log << " ulp: " << std::format("{:.0e}", ulp) << "   ";
+          vals(i) = (vals(i) - min_val) / range; //Normalizing to 0-1
+          log << " (" << vals(i);
+          ulp = std::nextafter(vals(i), std::numeric_limits<FT>::infinity()) - vals(i);
+          log << " ulp: " << std::format("{:.0e}", ulp) << ")\n";
+      }
+
+      log << "Function range: " << min_val << "-" << max_val << "\n";
+      log << "Normalizing to 0-1\n";
+
+
+
+      em J(degree + 1, degree + 1);
+      for (int j = 0; j < degree + 1; ++j) {
+          for (int k = 0; k < degree + 1; ++k) {
+              J(j, k) = glm::pow(cos((T::pi * j) / degree), k);
+          }
+      }
+      J = J.inverse();
+      // std::cout << "J:\n" << J << "\n\n";
+      //
+      Eigen::JacobiSVD<em> svd(J);
+      double cond = svd.singularValues()(0) /
+          (svd.singularValues()(svd.singularValues().size() - 1));
+      // if (cond > 3)
+      //   std::cout << "cond: " << cond << "\n";
+
+      ev coeffs = J * vals;
+      log << "Monomial coefficients:\n" << coeffs << "\n\n";
+
+      std::vector<FT> coeff_vec(coeffs.size());
+      for (int i = 0; i < coeffs.size(); i++) {
+          coeff_vec[i] = coeffs(i);
+      }
+      return { coeff_vec, a, b, min_val, max_val };
+  }
 
   static MonSeg<FT> FitAtChebPoints(const Seg<FT> &other) {
     const int deg = other.coeffs.size() - 1;
@@ -78,17 +144,18 @@ private:
     return res;
   }
 
-  virtual std::vector<FT> FindRootsNorm() const override {
+  virtual std::vector<FT> FindRootsNorm(json& metadata) const override {
     Logger &log = Logger::Get();
     constexpr FT eps = std::numeric_limits<FT>::epsilon();
     const auto &c = coeffs;
     assert(c.size() > 0);
+    metadata["segment"] = *this;
     const int deg = c.size() - 1;
     log << Logger::cat("rootfinder");
     log << "Note: FindRootsNorm works without normalized range\n";
     log << "fr " << begin << "-" << end << " d: " << deg << "\n";
     if (deg == 0)
-      throw std::invalid_argument("Infinite roots");
+      throw std::invalid_argument("Infinite roots or no roots");
 
     if (deg == 1) {
       // FT r = (-min_val/(max_val-min_val)  -c[0]) / c[1];
@@ -129,7 +196,10 @@ private:
       }
     } else {
       MonSeg<FT> derivative = TDifferentiate();
-      std::vector<FT> critical_points = derivative.FindRootsNorm();
+      json recursive_data;
+      std::vector<FT> critical_points = derivative.FindRootsNorm(recursive_data);
+      metadata["derivative"] = recursive_data;
+      metadata["critical_points_normalized"] = critical_points;
       log << "d: " << deg << " crits: " << critical_points.size() << "\n";
       std::vector<FT> borders = {-1};
       borders.insert(borders.end(), critical_points.begin(),
@@ -181,8 +251,8 @@ private:
                                  min_val, max_val)
                               .Eval(xn) /
                           MonSeg<FT>(derivative.coeffs, static_cast<FT>(-1.0),
-                                     static_cast<FT>(1.0), min_val, max_val)
-                              .Eval(xc);
+                                     static_cast<FT>(1.0))
+                              .Eval(xn);
 
             ++step;
           }

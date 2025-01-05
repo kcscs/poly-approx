@@ -26,7 +26,7 @@ protected:
 template <typename FT>
 struct StopIfErrorChangeIsBelowThreshold : public StopStrategy<FT> {
     virtual bool stop(FT cur_error) override {
-        if(last_error && abs(last_error.value() - cur_error) < stop_threshold)
+        if(last_error && abs(last_error.value() - cur_error) < stop_threshold || cur_error < stop_threshold)
             return true;
         last_error = cur_error;
         return false;

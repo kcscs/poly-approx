@@ -108,7 +108,7 @@ public:
       ChebSeg<FT> seg =
           ChebSeg<FT>::Interpolate(func, max_degree, cur_begin, cur_end);
 
-      auto err = seg.Error(func);
+      auto err = seg.InterstitialError(func);
       FT err_val = std::get<0>(err);
       FT max_err_place = std::get<3>(err);
       seg.metadata["interstitial_error"] = err_val;
@@ -156,4 +156,96 @@ protected:
 
   std::unique_ptr<SplitStrategy<FT>> split_strategy;
   std::unique_ptr<StopStrategy<FT>> stop_strategy;
+};
+
+
+
+
+/*---------- Monomial Tracers ----------*/
+
+template <typename FT>
+class FirstRootMonomialTracer : public TraceMethod<FT> {
+    using typename TraceMethod<FT>::TraceResult;
+    using typename TraceMethod<FT>::T;
+
+public:
+    FirstRootMonomialTracer(json settings) : TraceMethod<FT>() {
+        clip_distances = settings["clip"];
+        this->settings = settings;
+        max_degree = settings["max_degree"];
+        target_precision = settings["target_precision"];
+        split_strategy = CreateSplitStrategy<FT>(settings);
+        stop_strategy = CreateStopStrategy<FT>(settings);
+    }
+
+    TraceResult trace(T::Ray ray, T::SurfaceFunction f) const override {
+
+        Logger& log = Logger::Get();
+        TraceResult res;
+        typename T::RRFunction func = [&](FT t) {
+            typename T::gv3 p = ray.start + t * ray.dir;
+            return f(p.x, p.y, p.z);
+            };
+
+        FT cur_begin = this->clip_distances.x;
+        FT cur_end = this->clip_distances.y;
+
+        std::vector<MonSeg<FT>> computed_mon_segments;
+
+        stop_strategy->reset();
+
+        while (cur_begin < this->clip_distances.y) {
+            MonSeg<FT> seg =
+                MonSeg<FT>::Interpolate(func, max_degree, cur_begin, cur_end);
+
+            auto err = seg.InterstitialError(func);
+            FT err_val = std::get<0>(err);
+            FT max_err_place = std::get<3>(err);
+            seg.metadata["interstitial_error"] = err_val;
+            seg.metadata["interstitial_error_max_loc"] = max_err_place;
+
+            if (!stop_strategy->stop(err_val)) {
+                SplitContext<FT> ctx;
+                ctx.max_error_place = max_err_place;
+                log << "split"_cat << "split: " << cur_begin << "-" << cur_end
+                    << " e:" << err_val << "\n";
+                cur_end = split_strategy->split(cur_begin, cur_end, ctx);
+
+            }
+            else {
+                log << "segment"_cat << "segment: " << cur_begin << "-" << cur_end
+                    << " err: " << err_val << "\n";
+
+                
+                computed_mon_segments.push_back(seg);
+                json rootdata;
+                std::vector<FT> roots = seg.FindRoots(rootdata);
+                if (roots.size() > 0) {
+                    res.hit = true;
+                    res.distance = roots[0];
+                    res.metadata["rootfinding"] = rootdata;
+                    res.metadata["power_segments"] = computed_mon_segments;
+                    return res;
+                }
+                else {
+                    cur_begin = cur_end;
+                    cur_end = this->clip_distances.y;
+                    stop_strategy->reset();
+                }
+            }
+        }
+        res.hit = false;
+        res.metadata["power_segments"] = computed_mon_segments;
+        return res;
+    }
+
+protected:
+    T::gv2 clip_distances;
+    json settings;
+
+    int max_degree;
+    FT target_precision;
+
+    std::unique_ptr<SplitStrategy<FT>> split_strategy;
+    std::unique_ptr<StopStrategy<FT>> stop_strategy;
 };

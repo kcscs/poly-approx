@@ -128,7 +128,7 @@ public:
         // auto interp_res =
         //     chebyshev_interpolate(f, cur_degree, cur_begin, cur_end);
 
-        auto err_res = chebseg.Error(f);
+        auto err_res = chebseg.InterstitialError(f);
         log << Logger::cat("cheb_res");
         err = std::get<0>(err_res);
         log << "d:" << cur_degree << "  e:" << err << "\n";
@@ -157,7 +157,7 @@ public:
       } else {
         ChebSeg<FT> chebseg =
             ChebSeg<FT>::Interpolate(f, best_degree, cur_begin, cur_end);
-        auto err_res = chebseg.Error(f);
+        auto err_res = chebseg.InterstitialError(f);
         err = std::get<0>(err_res);
         log << Logger::cat("segment") << "segment: " << cur_begin << "-"
             << cur_end << " deg: " << best_degree << " err: " << err << "\n";

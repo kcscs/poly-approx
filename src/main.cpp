@@ -76,13 +76,15 @@ template <typename FT>
 json cheb_exp(const ExperimentConfig &exp, std::string exp_dir) {
   Logger& log = Logger::Get();
 
-  std::unique_ptr<PolynomialTracer<FT>> tracer;
+  std::unique_ptr<TraceMethod<FT>> tracer;
   std::string trace_method = exp.trace_settings.value("algorithm", "global_chebyshev");
   log << "init"_cat << "Trace method: "<<trace_method<<"\n";
   if(trace_method == "global_chebyshev")
     tracer = std::make_unique<PolynomialTracer<FT>>(exp.trace_settings);
   else if(trace_method == "first_root_chebyshev")
     tracer = std::make_unique<FirstRootPolynomialTracer<FT>>(exp.trace_settings);
+  else if (trace_method == "first_root_monomial")
+      tracer = std::make_unique<FirstRootMonomialTracer<FT>>(exp.trace_settings);
   else {
     log << "unknown trace algorithm\n";
     return json("ERROR - unknown trace algorithm");

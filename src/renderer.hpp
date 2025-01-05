@@ -47,6 +47,8 @@ public:
     typename T::gv3 eye(view_conf.eye);
     typename T::gv3 at(view_conf.at);
 
+    light_dir = glm::normalize(light_dir);
+
     typename T::gm4 invView =
         glm::inverse(glm::lookAt(eye, at, typename T::gv3(0.0f, 1.0f, 0.0f)));
     log << "render"_cat << "invView: " << invView << "\n";
@@ -119,7 +121,7 @@ public:
               glm::clamp(glm::dot(to_eye, glm::reflect(light_dir, norm)),
                          static_cast<FT>(0.0), static_cast<FT>(1.0)),
               27);
-          float col = glm::clamp(diffuse + specular, 0.0f, 1.0f);
+          float col = glm::clamp(diffuse, 0.0f, 1.0f);
           pixels[px_idx] = col*255;
           pixels[px_idx+1] = col*255;
           pixels[px_idx+2] = col*255;

@@ -43,36 +43,7 @@ public:
     return res;
   }
 
-  std::tuple<FT, ev, ev, FT> Error(T::RRFunction ground_truth)
-      const override { // return type should have ET for the error
-    using ET = FT;
-    Logger &log = Logger::Get();
-    log << Logger::cat("interstitial");
-
-    int degree = this->deg();
-    ev x(degree);
-    for (int i = 1; i < 2 * degree + 1; i += 2)
-      x(i / 2) = cos((T::pi * i) / (2 * degree));
-
-    ev y(degree);
-    ET interstitial_error = -1;
-    FT interstitial_error_place = -1;
-    log << "calculating error\ncoeffs: " << coeffs << "\n";
-    log << "scaling min and max values: "<<min_val<<" "<<max_val<<"\n";
-    for (int i = 0; i < x.size(); ++i) {
-      FT x2 = (end-begin)/2 * x(i) + (end + begin)/2;
-      y(i) = (ground_truth(x2)-min_val)/(max_val-min_val);
-      FT approx = this->EvalNorm(x(i));
-      ET err = abs(static_cast<ET>(approx) - y(i));
-      log << "at " << x(i) << " gt:" << y(i) << " approx:" << approx
-          << " err:" << err << "\n";
-      if (err > interstitial_error) {
-        interstitial_error = err;
-        interstitial_error_place = x(i);
-      }
-    }
-    return std::make_tuple(interstitial_error, x, y, interstitial_error_place);
-  }
+  
 
   /// Solving transcendental equations 3.2
   static ChebSeg<FT> Interpolate(T::RRFunction func, int degree, FT a, FT b) {
