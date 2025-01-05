@@ -57,6 +57,14 @@ class JsonViewerWidget(QtWidgets.QWidget):
             print(self.holdFigure)
         self.holdToggle.stateChanged.connect(holdHandler)
 
+        self.ignoreScale = False
+        self.ignoreScaleToggle = QtWidgets.QCheckBox("Ignore scale and shift (plot normalized)", self)
+        layout.addWidget(self.ignoreScaleToggle)
+        def ignoreScaleHandler(state):
+            self.ignoreScale = QtCore.Qt.CheckState(state) == QtCore.Qt.Checked
+            print(self.ignoreScale)
+        self.ignoreScaleToggle.stateChanged.connect(ignoreScaleHandler)
+
         # Set the layout
         self.setLayout(layout)
         
@@ -131,45 +139,60 @@ class JsonViewerWidget(QtWidgets.QWidget):
     def plot_selected_as_chebyshev(self):
         self.plot_selected(cheb_eval)
 
+    def plot_single_segment(self, model, parent_idx, eval_func):
+        childRows = model.rowCount(parent_idx)
+        coeffs = []
+        func_range = []
+        func_domain = []
+        for seg_i in range(childRows):
+            segAttrIdx = model.index(seg_i, 0, parent_idx)
+            print("attribute: " + segAttrIdx.data())
+            if "coeff" in segAttrIdx.data():
+                print("found " + segAttrIdx.data())
+                coeffCount = model.rowCount(segAttrIdx)
+                print("coeff count: " + str(coeffCount))
+                
+                for coeff_i in range(coeffCount):
+                    coeffs.append(float(model.index(coeff_i, 1, segAttrIdx).data()))
+            if "range" in segAttrIdx.data():
+                func_range.append(float(model.index(0,1,segAttrIdx).data()))
+                func_range.append(float(model.index(1,1,segAttrIdx).data()))
+            if "domain" in segAttrIdx.data():
+                func_domain.append(float(model.index(0,1,segAttrIdx).data()))
+                func_domain.append(float(model.index(1,1,segAttrIdx).data()))
+        print("range: " + str(func_range))
+        print("domain: " + str(func_domain))
+        print("coeffs: " + str(coeffs))
+
+        if self.ignoreScale:
+            func_domain = [-1,1]
+            func_range = [0,1]
+        points = max(10,int((func_domain[1]-func_domain[0])/0.02))
+        xs = np.linspace(func_domain[0], func_domain[1], points)
+        ys = eval_func(xs, coeffs, func_domain, func_range)
+        return (xs, ys)
+
     def plot_selected(self, eval_func):
         rootIdx = self.tree_view.selectedIndexes()[0]
         m = rootIdx.model()
         
         childCount = m.rowCount(rootIdx)
-        
         plot_segments = []
+
+        isSingleSegment = False
         for child_i in range(childCount):
             childIdx = m.index(child_i, 0, rootIdx)
-            coeffs_row = 0
-            childRows = m.rowCount(childIdx)
-            coeffs = []
-            func_range = []
-            func_domain = []
-            for seg_i in range(childRows):
-                segAttrIdx = m.index(seg_i, 0, childIdx)
-                print("attribute: " + segAttrIdx.data())
-                if "coeff" in segAttrIdx.data():
-                    print("found " + segAttrIdx.data())
-                    coeffCount = m.rowCount(segAttrIdx)
-                    print("coeff count: " + str(coeffCount))
-                    
-                    for coeff_i in range(coeffCount):
-                        coeffs.append(float(m.index(coeff_i, 1, segAttrIdx).data()))
-                if "range" in segAttrIdx.data():
-                    func_range.append(float(m.index(0,1,segAttrIdx).data()))
-                    func_range.append(float(m.index(1,1,segAttrIdx).data()))
-                if "domain" in segAttrIdx.data():
-                    func_domain.append(float(m.index(0,1,segAttrIdx).data()))
-                    func_domain.append(float(m.index(1,1,segAttrIdx).data()))
-            print("range: " + str(func_range))
-            print("domain: " + str(func_domain))
-            print("coeffs: " + str(coeffs))
+            if "coeff" in childIdx.data():
+                isSingleSegment = True
+                xs,ys = self.plot_single_segment(m, rootIdx, eval_func)
+                plot_segments.append(go.Scatter(x=xs,y=ys,mode='lines'))
 
-            points = max(10,int((func_domain[1]-func_domain[0])/0.05))
-            xs = np.linspace(func_domain[0], func_domain[1], points)
-            ys = eval_func(xs, coeffs, func_domain, func_range)
-            plot_segments.append(go.Scatter(x=xs,y=ys,mode='lines'))
-        
+        if not isSingleSegment:
+            for child_i in range(childCount):
+                childIdx = m.index(child_i, 0, rootIdx)
+                xs,ys = self.plot_single_segment(m, childIdx, eval_func)
+                plot_segments.append(go.Scatter(x=xs,y=ys,mode='lines'))
+            
         # Create the layout
         layout = go.Layout(
         title="",
